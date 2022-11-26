@@ -31,7 +31,7 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Restaurants</h3>
+                <h3 class="card-title">Products</h3>
 
               </div>
               <!-- /.card-header -->
@@ -41,20 +41,42 @@
                   <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Logo</th>
+                    <th>Generic name</th>
+                    <th>Group name</th>
+                    <th>Batch name</th>
+                    <th>Expiry date</th>
+                    <th>COG</th>
+                    <th>Sale price</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
 
-                    @foreach ($products as $res)
+                    @foreach ($products as $product)
                         <tr>
                             <td>{{$loop->index+1}}</td>
-                            <td>{{$res->name}}</td>
-                            <td>{{$res->email}}</td>
-                            <td>{{$res->phone}}</td>
-                            <td> <img src="{{asset('')}}tmp/uploads/restaurant/logo/{{$res->image}}" width="50" height="50"/></td>
+                            <td>{{$product->name}}</td>
+                            <td>{{$product->generic_name}}</td>
+                            <td>{{$product->group_name}}</td>
+                            <td>{{$product->batch_name}}</td>
+                            <td>{{$product->expire_date}}</td>
+                            <td>{{$product->cost_of_goods}}</td>
+                            <td>{{$product->sale_price}}</td>
+                            <td>{{$product->quantity}}</td>
+                            <td>
+                                <form action="/product/{{$product->id}}" method="DELETE">
+                                    <button type="submit" style="border: none;">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <a href="/product/{{$product->id}}/edit">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                   </tbody>
@@ -62,9 +84,15 @@
                   <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Logo</th>
+                    <th>Generic name</th>
+                    <th>Group name</th>
+                    <th>Batch name</th>
+                    <th>Expiry date</th>
+                    <th>COG</th>
+                    <th>Sale price</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                    <th>Action</th>
                   </tr>
                   </tfoot>
                 </table>
