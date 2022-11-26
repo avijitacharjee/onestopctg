@@ -179,7 +179,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{asset('lte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">R M S</span>
+      <span class="brand-text font-weight-light">One Stop Ctg</span>
     </a>
 
     <!-- Sidebar -->
@@ -190,7 +190,7 @@
           <img src="{{asset('lte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Super Admin</a>
+          <a href="#" class="d-block">Pos</a>
         </div>
       </div>
 
@@ -220,7 +220,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="orders" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
@@ -228,28 +228,28 @@
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
-          </li>
+          </li> --}}
 
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Platters
+                Products
                 <i class="fas fa-angle-left right"></i>
                 <span class="badge badge-info right">6</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin/platters" class="nav-link">
+                <a href="/products" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>See all platters</p>
+                  <p>See all products</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin/add-platter" class="nav-link">
+                <a href="/product/create" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add platter</p>
+                  <p>Add product</p>
                 </a>
               </li>
 
@@ -259,20 +259,20 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Categories
+                Customers
                 <i class="fas fa-angle-left right"></i>
                 <span class="badge badge-info right">6</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin/categories" class="nav-link">
+                <a href="/customers" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>See all categories</p>
+                  <p>See all customers</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin/category/add" class="nav-link">
+                <a href="/customers/add" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add category</p>
                 </a>
@@ -284,7 +284,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Restaurants
+                Sales
                 <i class="fas fa-angle-left right"></i>
                 <span class="badge badge-info right">6</span>
               </p>
@@ -293,13 +293,13 @@
               <li class="nav-item">
                 <a href="/admin/restaurants" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>See all Restaurants</p>
+                  <p>See all sales</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="/admin/add-restaurant" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add Restaurants</p>
+                  <p>Add sale</p>
                 </a>
               </li>
 

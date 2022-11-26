@@ -48,7 +48,7 @@
                   </thead>
                   <tbody>
 
-                    @foreach ($restaurants as $res)
+                    @foreach ($products as $res)
                         <tr>
                             <td>{{$loop->index+1}}</td>
                             <td>{{$res->name}}</td>
