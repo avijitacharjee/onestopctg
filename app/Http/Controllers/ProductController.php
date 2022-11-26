@@ -8,6 +8,12 @@ use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
+    public function all(){
+        return response()->json([
+            'data'=>Product::all(),
+            'success'=>true
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +23,7 @@ class ProductController extends Controller
     {
 
         $products = Product::all();
-        return view('admin.products')->with('products',$products);
+        return view('admin.product.index')->with('products',$products);
     }
 
     /**
@@ -27,7 +33,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.add-product');
+        return view('admin.product.add');
     }
 
     public function store(StoreProductRequest $request)
@@ -49,7 +55,7 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return view('admin.update-product')->with('product', $product);
+        return view('admin.product.update')->with('product', $product);
     }
     public function update(UpdateProductRequest $request, Product $product)
     {

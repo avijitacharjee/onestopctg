@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sale;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
+use Illuminate\Support\Facades\Log;
 
 class SaleController extends Controller
 {
@@ -15,7 +16,7 @@ class SaleController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.sale.index');
     }
 
     /**
@@ -25,7 +26,7 @@ class SaleController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.sale.add');
     }
 
     /**
@@ -36,7 +37,25 @@ class SaleController extends Controller
      */
     public function store(StoreSaleRequest $request)
     {
-        //
+        Log::info($request->all());
+        $sale = new Sale();
+        $sale->customer_id = $request->customer_id;
+        $sale->product_ids = implode(',', $request->product_ids);
+        $sale->quantities = implode(',', $request->quantities);
+
+        $numOfProducts = count($request->product_ids);
+        $frees = [];
+        for($i=0;$i<$numOfProducts;$i++){
+            if(in_array($i,$request->is_bonuses)){
+                $frees[$i]=1;
+            }else{
+                $frees[$i]=0;
+            }
+        }
+
+        $sale->is_free = implode(',', $frees);
+        $sale->save();
+        return back();
     }
 
     /**

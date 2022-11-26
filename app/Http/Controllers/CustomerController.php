@@ -8,6 +8,12 @@ use App\Http\Requests\UpdateCustomerRequest;
 
 class CustomerController extends Controller
 {
+    public function all(){
+        return response()->json([
+            'data'=>Customer::all(),
+            'success'=>true
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +22,7 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::all();
-        return view('admin.customers')->with('customers', $customers);
+        return view('admin.customer.index')->with('customers', $customers);
     }
 
     /**
@@ -26,7 +32,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('admin.add-customer');
+        return view('admin.customer.add');
     }
 
     /**
@@ -60,7 +66,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        return view('admin.update-customer')->with('product', $customer);
+        return view('admin.customer.update')->with('product', $customer);
     }
 
     public function update(UpdateCustomerRequest $request, Customer $customer)

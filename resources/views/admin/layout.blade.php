@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="{{asset('lte/plugins/summernote/summernote-bs4.min.css')}}">
 
   <link rel="stylesheet" href="{{asset('asset/main.css')}}">
+  @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -291,13 +292,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin/restaurants" class="nav-link">
+                <a href="/sale" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>See all sales</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin/add-restaurant" class="nav-link">
+                <a href="/sale/create" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add sale</p>
                 </a>
