@@ -41,41 +41,33 @@
                   <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Generic name</th>
-                    <th>Group name</th>
-                    <th>Batch name</th>
-                    <th>Expiry date</th>
-                    <th>COG</th>
-                    <th>Sale price</th>
-                    <th>Quantity</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Zone</th>
                     <th>Action</th>
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
 
-                    @foreach ($products as $product)
+                    @foreach ($customers as $customer)
                         <tr>
                             <td>{{$loop->index+1}}</td>
-                            <td>{{$product->name}}</td>
-                            <td>{{$product->generic_name}}</td>
-                            <td>{{$product->group_name}}</td>
-                            <td>{{$product->batch_name}}</td>
-                            <td>{{$product->expire_date}}</td>
-                            <td>{{$product->cost_of_goods}}</td>
-                            <td>{{$product->sale_price}}</td>
-                            <td>{{$product->quantity}}</td>
+                            <td>{{$customer->name}}</td>
+                            <td>{{$customer->email}}</td>
+                            <td>{{$customer->phone}}</td>
+                            <td>{{$customer->zone}}</td>
                             <td>
-                                <form action="/product/{{$product->id}}" method="POST">
+                                <form action="/customer/{{$customer->id}}" method="POST">
                                     @csrf
-                                    <input type="hidden" name="_method" value="PUT">
+                                    <input type="hidden" name="_method" value="DELETE">
                                     <button type="submit" style="border: none;">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </form>
                             </td>
                             <td>
-                                <a href="/product/{{$product->id}}/edit">
+                                <a href="/product/{{$customer->id}}/edit">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </td>
@@ -86,13 +78,9 @@
                   <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Generic name</th>
-                    <th>Group name</th>
-                    <th>Batch name</th>
-                    <th>Expiry date</th>
-                    <th>COG</th>
-                    <th>Sale price</th>
-                    <th>Quantity</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Zone</th>
                     <th>Action</th>
                     <th>Action</th>
                   </tr>

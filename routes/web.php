@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,4 @@ Route::get('/', function () {
 Route::post('/login', [UserController::class,'login']);
 Route::view('dashboard', 'admin.dashboard');
 Route::resource('product', ProductController::class);
+Route::resource('customer', CustomerController::class);

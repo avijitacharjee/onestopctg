@@ -266,15 +266,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/customers" class="nav-link">
+                <a href="/customer" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>See all customers</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/customers/add" class="nav-link">
+                <a href="/customer/create" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add category</p>
+                  <p>Add customer</p>
                 </a>
               </li>
 

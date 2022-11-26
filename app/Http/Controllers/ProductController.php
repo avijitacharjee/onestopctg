@@ -8,8 +8,6 @@ use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
-    public function list(){
-    }
     /**
      * Display a listing of the resource.
      *
