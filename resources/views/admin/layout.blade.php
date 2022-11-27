@@ -253,7 +253,12 @@
                   <p>Add product</p>
                 </a>
               </li>
-
+              <li class="nav-item">
+                <a href="/add-csv" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add product via csv</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item">

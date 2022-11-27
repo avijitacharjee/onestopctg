@@ -48,6 +48,7 @@
                     <th>COG</th>
                     <th>Sale price</th>
                     <th>Quantity</th>
+                    <th>Alert Quantity</th>
                     <th>Action</th>
                     <th>Action</th>
                   </tr>
@@ -65,6 +66,7 @@
                             <td>{{$product->cost_of_goods}}</td>
                             <td>{{$product->sale_price}}</td>
                             <td>{{$product->quantity}}</td>
+                            <td>{{$product->alert_quantity}}</td>
                             <td>
                                 <form action="/product/{{$product->id}}" method="POST">
                                     @csrf
@@ -93,6 +95,7 @@
                     <th>COG</th>
                     <th>Sale price</th>
                     <th>Quantity</th>
+                    <th>Alert Quantity</th>
                     <th>Action</th>
                     <th>Action</th>
                   </tr>

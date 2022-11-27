@@ -61,6 +61,7 @@
                                         id="exampleInputPassword1" placeholder="Alert quantity">
                                 </div>
 
+
                                 @if (session('message'))
                                     <div style="color: green">
                                         <ul>
