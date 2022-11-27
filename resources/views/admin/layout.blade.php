@@ -214,7 +214,7 @@
                with font-awesome or any other icon font library -->
 
           <li class="nav-item">
-            <a href="/admin/dashboard" class="nav-link">
+            <a href="/dashboard" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -307,12 +307,12 @@
             </ul>
           </li>
 
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="/admin/table-bookings" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>Table bookings</p>
             </a>
-          </li>
+          </li> --}}
 
           <div class="line nav-item"></div>
           <li class="nav-item">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sale;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
+use App\Models\Product;
 use Illuminate\Support\Facades\Log;
 
 class SaleController extends Controller
@@ -16,7 +17,17 @@ class SaleController extends Controller
      */
     public function index()
     {
-        return view('admin.sale.index');
+        $sales = Sale::all();
+        foreach($sales as $sale){
+            $productNames = [];
+            foreach(explode(',',$sale->product_ids) as $product_id){
+                $product = Product::find($product_id);
+                array_push($productNames,$product->name);
+            }
+            $sale->productNames = implode(', ',$productNames);
+        }
+        return view('admin.sale.index')
+            ->with('sales',$sales);
     }
 
     /**
@@ -43,14 +54,21 @@ class SaleController extends Controller
         $sale->product_ids = implode(',', $request->product_ids);
         $sale->quantities = implode(',', $request->quantities);
 
+
         $numOfProducts = count($request->product_ids);
+
         $frees = [];
+        $total = 0;
         for($i=0;$i<$numOfProducts;$i++){
-            if(in_array($i,$request->is_bonuses)){
+            $product = Product::find($request->product_ids[$i]);
+            if($request->is_bonuses!=null && in_array($i,$request->is_bonuses)){
                 $frees[$i]=1;
             }else{
                 $frees[$i]=0;
+                // $cost = $product->sale_price * $request->quantities[$i];
             }
+            $product->quantity = $product->quantity - $request->quantities[$i];
+            $product->save();
         }
 
         $sale->is_free = implode(',', $frees);

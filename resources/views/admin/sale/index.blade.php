@@ -31,7 +31,7 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Products</h3>
+                <h3 class="card-title">sales</h3>
 
               </div>
               <!-- /.card-header -->
@@ -40,33 +40,27 @@
                   <thead>
                   <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Generic name</th>
-                    <th>Group name</th>
-                    <th>Batch name</th>
-                    <th>Expiry date</th>
-                    <th>COG</th>
-                    <th>Sale price</th>
-                    <th>Quantity</th>
-                    <th>Action</th>
-                    <th>Action</th>
+                    <th>Customer name</th>
+                    <th>Products</th>
+                    <th>Quantities</th>
+                    <th>Is bonus</th>
                   </tr>
                   </thead>
                   <tbody>
 
-                    @foreach ($products as $product)
+                    @foreach ($sales as $sale)
                         <tr>
                             <td>{{$loop->index+1}}</td>
-                            <td>{{$product->name}}</td>
-                            <td>{{$product->generic_name}}</td>
-                            <td>{{$product->group_name}}</td>
-                            <td>{{$product->batch_name}}</td>
-                            <td>{{$product->expire_date}}</td>
-                            <td>{{$product->cost_of_goods}}</td>
-                            <td>{{$product->sale_price}}</td>
-                            <td>{{$product->quantity}}</td>
+                            <td>{{$sale->customer->name}}</td>
+                            <td>{{$sale->productNames}}</td>
+                            <td>{{$sale->quantities}}</td>
+                            <td>{{$sale->batch_name}}</td>
+                            {{-- <td>{{$sale->expire_date}}</td>
+                            <td>{{$sale->cost_of_goods}}</td>
+                            <td>{{$sale->sale_price}}</td>
+                            <td>{{$sale->quantity}}</td>
                             <td>
-                                <form action="/product/{{$product->id}}" method="POST">
+                                <form action="/sale/{{$sale->id}}" method="POST">
                                     @csrf
                                     <input type="hidden" name="_method" value="PUT">
                                     <button type="submit" style="border: none;">
@@ -75,26 +69,20 @@
                                 </form>
                             </td>
                             <td>
-                                <a href="/product/{{$product->id}}/edit">
+                                <a href="/sale/{{$sale->id}}/edit">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                            </td>
+                            </td> --}}
                         </tr>
                     @endforeach
                   </tbody>
                   <tfoot>
                   <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Generic name</th>
-                    <th>Group name</th>
-                    <th>Batch name</th>
-                    <th>Expiry date</th>
-                    <th>COG</th>
-                    <th>Sale price</th>
-                    <th>Quantity</th>
-                    <th>Action</th>
-                    <th>Action</th>
+                    <th>Customer name</th>
+                    <th>Products</th>
+                    <th>Quantities</th>
+                    <th>Is bonus</th>
                   </tr>
                   </tfoot>
                 </table>
