@@ -220,8 +220,8 @@
                 `
                     <tr>
                         <td>${index+1}</td>
-                        <td>${$('#customer').val()}</td>
-                        <td>${$('#product').val()}</td>
+                        <td id='customer${index}'>${$('#customer').val()}</td>
+                        <td id='product${index}'>${$('#product').val()}</td>
                         <td>
                             ${$('#price').val()}
                             <input type='hidden' name='prices[]' id='price${index}' value='${$('#price').val()}'/>
@@ -231,13 +231,13 @@
                             <input type='hidden' name='product_ids[]' value='${$('#product_id').val()}' />
                         </td>
                         <td>
-                            <input type='number' min='0' id='sample${index}' name='quantities[]' class="form-control"/>
+                            <input type='number' min='0' id='sample${index}' name='samples[]' class="form-control"/>
                         </td>
                         <td>
                             <input type='number' min='0' id='bonus${index}' name='bonuses[]'class="form-control"/>
                         </td>
                         <td>
-                            <input type='number' min='0' id='discount${index}' name='discount[]' class="form-control"/>
+                            <input type='number' min='0' id='discount${index}' name='discounts[]' class="form-control"/>
                         </td>
                     </tr>
                     `
@@ -260,15 +260,15 @@
                 let bonus = $('#bonus' + i).val();
                 let discount = $('#discount' + i).val();
                 let price = $('#price' + i).val();
-                let subTotal = (quantity - sample - bonus) * price - discount;
+                let subTotal = (quantity) * price - discount;
                 total = total + subTotal;
                 $('#tbodyModal').append(
                     `
                         <tr>
                             <td>${i+1}</td>
-                            <td>a</td>
-                            <td>a</td>
-                            <td>a</td>
+                            <td>${$('#customer'+i).html()}</td>
+                            <td>${$('#product'+i).html()}</td>
+                            <td>${price}</td>
                             <td>${quantity}</td>
                             <td>${sample}</td>
                             <td>${bonus}</td>

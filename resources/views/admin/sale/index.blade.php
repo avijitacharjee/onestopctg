@@ -31,7 +31,7 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">sales</h3>
+                <h3 class="card-title">Sales</h3>
 
               </div>
               <!-- /.card-header -->
@@ -41,20 +41,34 @@
                   <tr>
                     <th>#</th>
                     <th>Customer name</th>
-                    <th>Products</th>
-                    <th>Quantities</th>
-                    <th>Is bonus</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Sample</th>
+                    <th>Bonus</th>
+                    <th>Discount</th>
+                    <th>Subtotal (bdt )</th>
                   </tr>
                   </thead>
                   <tbody>
-
+                    @php
+                        $index=1;
+                    @endphp
                     @foreach ($sales as $sale)
+                        @if(isset($sale->saleItems))
+                        @foreach ($sale->saleItems as $saleItem)
                         <tr>
-                            <td>{{$loop->index+1}}</td>
-                            <td>{{$sale->customer->name}}</td>
-                            <td>{{$sale->productNames}}</td>
-                            <td>{{$sale->quantities}}</td>
-                            <td>{{$sale->batch_name}}</td>
+                            @if($loop->first)
+                                <td rowspan="{{$sale->saleItems->count()}}">{{$index++}}</td>
+                                <td rowspan="{{$sale->saleItems->count()}}">{{$saleItem->customer->name}}</td>
+                            @endif
+                            <td>{{$saleItem->product->name}}</td>
+                            <td>{{$saleItem->price}}</td>
+                            <td>{{$saleItem->quantity}}</td>
+                            <td>{{$saleItem->sample}}</td>
+                            <td>{{$saleItem->bonus}}</td>
+                            <td>{{$saleItem->discount}}</td>
+                            <td>{{($saleItem->quantity*$saleItem->price)-$saleItem->discount}}</td>
                             {{-- <td>{{$sale->expire_date}}</td>
                             <td>{{$sale->cost_of_goods}}</td>
                             <td>{{$sale->sale_price}}</td>
@@ -74,15 +88,22 @@
                                 </a>
                             </td> --}}
                         </tr>
+                        @endforeach
+                        @endif
+
                     @endforeach
                   </tbody>
                   <tfoot>
                   <tr>
                     <th>#</th>
                     <th>Customer name</th>
-                    <th>Products</th>
-                    <th>Quantities</th>
-                    <th>Is bonus</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Sample</th>
+                    <th>Bonus</th>
+                    <th>Discount</th>
+                    <th>Subtotal</th>
                   </tr>
                   </tfoot>
                 </table>
