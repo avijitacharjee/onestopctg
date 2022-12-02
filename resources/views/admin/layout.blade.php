@@ -230,7 +230,7 @@
               </p>
             </a>
           </li> --}}
-
+          @if(auth()->user()->permissions->contains('name','product'))
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -261,6 +261,8 @@
               </li>
             </ul>
           </li>
+          @endif
+          @if(auth()->user()->permissions->contains('name','customer'))
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -286,6 +288,8 @@
 
             </ul>
           </li>
+          @endif
+          @if(auth()->user()->permissions->contains('name','sale'))
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -311,6 +315,8 @@
 
             </ul>
           </li>
+          @endif
+          @if(auth()->user()->role->name=='Super Admin')
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -333,6 +339,32 @@
                   <p>Add user</p>
                 </a>
               </li>
+
+            </ul>
+          </li>
+          @endif
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Reports
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right">6</span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/reports/sale" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sale report</p>
+                </a>
+              </li>
+              {{-- <li class="nav-item">
+                <a href="/user/create" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add user</p>
+                </a>
+              </li> --}}
 
             </ul>
           </li>
@@ -361,7 +393,7 @@
   @yield('content')
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="">RMS</a>.</strong>
+    <strong>Copyright &copy; 2014-2021 <a href="">OneStopCtg</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 0.0.1

@@ -43,14 +43,11 @@
                     <th>Name</th>
                     <th>Generic name</th>
                     <th>Group name</th>
-                    <th>Batch name</th>
-                    <th>Expiry date</th>
                     <th>COG</th>
                     <th>Sale price</th>
-                    <th>Quantity</th>
-                    <th>Alert Quantity</th>
-                    <th>Action</th>
-                    <th>Action</th>
+                    <th>Sold Quantity</th>
+                    <th>Sales</th>
+                    <th>Revenue</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -61,26 +58,11 @@
                             <td>{{$product->name}}</td>
                             <td>{{$product->generic_name}}</td>
                             <td>{{$product->group_name}}</td>
-                            <td>{{$product->batch_name}}</td>
-                            <td>{{$product->expire_date}}</td>
                             <td>{{$product->cost_of_goods}}</td>
                             <td>{{$product->sale_price}}</td>
-                            <td>{{$product->quantity}}</td>
-                            <td>{{$product->alert_quantity}}</td>
-                            <td>
-                                <form action="/product/{{$product->id}}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" style="border: none;">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
-                            <td>
-                                <a href="/product/{{$product->id}}/edit">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                            </td>
+                            <td>{{$product->sold_quantity}}</td>
+                            <td>{{$product->sales}}</td>
+                            <td>{{$product->revenue}}</td>
                         </tr>
                     @endforeach
                   </tbody>
@@ -90,14 +72,11 @@
                     <th>Name</th>
                     <th>Generic name</th>
                     <th>Group name</th>
-                    <th>Batch name</th>
-                    <th>Expiry date</th>
                     <th>COG</th>
                     <th>Sale price</th>
-                    <th>Quantity</th>
-                    <th>Alert Quantity</th>
-                    <th>Action</th>
-                    <th>Action</th>
+                    <th>Sold Quantity</th>
+                    <th>Sales</th>
+                    <th>Revenue</th>
                   </tr>
                   </tfoot>
                 </table>

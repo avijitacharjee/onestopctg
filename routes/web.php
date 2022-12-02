@@ -21,6 +21,7 @@ Route::get('/', function () {
     return view('admin.login');
 });
 Route::post('/login', [UserController::class,'login']);
+Route::get('logout', [UserController::class, 'logout']);
 Route::view('dashboard', 'admin.dashboard');
 Route::resource('product', ProductController::class);
 Route::resource('customer', CustomerController::class);
@@ -28,4 +29,5 @@ Route::resource('sale', SaleController::class);
 Route::view('add-csv', 'admin.product.add-csv');
 Route::post('/add-csv', [ProductController::class, 'addCsv']);
 
+Route::get('reports/sale', [ProductController::class,'saleReport']);
 Route::resource('user', UserController::class);

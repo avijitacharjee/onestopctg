@@ -5,11 +5,34 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Sale;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function saleReport(){
+        $products = Product::all();
+        $sales = Sale::all();
+        foreach($products as $product){
+            $product->sales = 0;
+            $product->revenue = 0;
+            $product->sold_quantity = 0;
+        }
+        foreach($sales as $sale){
+            foreach($sale->saleItems as $saleItem){
+                foreach($products as $product){
+                    if($product->id ==  $saleItem->product->id){
+                        $product->sold_quantity += $saleItem->quantity;
+                        $product->sales += ($saleItem->price * $saleItem->quantity);
+                        $product->revenue += ($saleItem->product->cost_of_goods * $saleItem->quantity);
+                    }
+                }
+            }
+        }
+        return view('admin.report.sale')
+            ->with('products',$products);
+    }
     public function addCsv(Request $request){
         $file = $request->file('csv');
         $lines = file($file, FILE_IGNORE_NEW_LINES);

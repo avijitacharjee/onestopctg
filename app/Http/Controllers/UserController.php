@@ -5,11 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     public function login(Request $request){
-        return redirect('dashboard');
+        $user = User::where('email',$request->email)->first();
+        if($user){
+            if($user->password == $request->password){
+                Auth::login($user);
+                return redirect('/dashboard');
+            }else {
+                return back()->with('message', 'Invalid credentials');
+            }
+        }else {
+            return back()->with('message', 'This email is not registered');
+        }
+    }
+    public function logout(Request $request){
+        Auth::logout();
+        return redirect('/');
     }
 
     public function index(){
