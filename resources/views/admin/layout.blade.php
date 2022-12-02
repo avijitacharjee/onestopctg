@@ -311,7 +311,31 @@
 
             </ul>
           </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Users
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right">6</span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/user" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>See all users</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/user/create" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add user</p>
+                </a>
+              </li>
 
+            </ul>
+          </li>
           {{-- <li class="nav-item">
             <a href="/admin/table-bookings" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>

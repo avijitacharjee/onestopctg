@@ -27,3 +27,5 @@ Route::resource('customer', CustomerController::class);
 Route::resource('sale', SaleController::class);
 Route::view('add-csv', 'admin.product.add-csv');
 Route::post('/add-csv', [ProductController::class, 'addCsv']);
+
+Route::resource('user', UserController::class);
