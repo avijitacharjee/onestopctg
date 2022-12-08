@@ -70,7 +70,7 @@
                             <td>
                                 <form action="/product/{{$product->id}}" method="POST">
                                     @csrf
-                                    <input type="hidden" name="_method" value="PUT">
+                                    <input type="hidden" name="_method" value="DELETE">
                                     <button type="submit" style="border: none;">
                                         <i class="fa fa-trash"></i>
                                     </button>

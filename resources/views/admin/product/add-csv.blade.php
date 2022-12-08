@@ -14,36 +14,39 @@
                         <!-- form start -->
                         <form method="POST" action="/add-csv" enctype="multipart/form-data">
                             @csrf
-                                <div class="form-group">
-                                    <label for="">Upload csv</label>
-                                    <input type="file" name="csv" accept=".csv" class="form-control">
+                            <div class="form-group">
+                                <label for="">Upload csv</label>
+                                <input type="file" name="csv" accept=".csv" class="form-control" required>
+                            </div>
+
+                            @if (session('message'))
+                                <div style="color: green">
+                                    <ul>
+                                        <li>{{ session('message') }}</li>
+                                    </ul>
                                 </div>
+                            @endif
 
-                                @if (session('message'))
-                                    <div style="color: green">
-                                        <ul>
-                                            <li>{{ session('message') }}</li>
-                                        </ul>
-                                    </div>
-                                @endif
-
-                            </div>
-                            <!-- /.card-body -->
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
                     </div>
-                    <!-- /.card -->
-
-
-
-
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a href="/csv-sample"  class="btn btn-secondary">
+                                Download Format
+                        </a>
+                    </div>
+                    </form>
                 </div>
-                <!--/.col (left) -->
+                <!-- /.card -->
+
+
+
 
             </div>
-            <!-- /.row -->
+            <!--/.col (left) -->
+
+        </div>
+        <!-- /.row -->
         </div><!-- /.container-fluid -->
     </section>
 @endsection

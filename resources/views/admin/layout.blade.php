@@ -230,14 +230,14 @@
               </p>
             </a>
           </li> --}}
-
+          @if(auth()->user()->permissions->contains('name','product') || auth()->user()->role->name=='Super Admin')
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Products
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
+
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -261,13 +261,15 @@
               </li>
             </ul>
           </li>
+          @endif
+          @if(auth()->user()->permissions->contains('name','customer') || auth()->user()->role->name=='Super Admin')
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Customers
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
+
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -286,13 +288,15 @@
 
             </ul>
           </li>
+          @endif
+          @if(auth()->user()->permissions->contains('name','sale') || auth()->user()->role->name=='Super Admin')
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Sales
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
+
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -311,13 +315,165 @@
 
             </ul>
           </li>
-
-          {{-- <li class="nav-item">
-            <a href="/admin/table-bookings" class="nav-link">
+          @endif
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
-              <p>Table bookings</p>
+              <p>
+                Expenses
+                <i class="fas fa-angle-left right"></i>
+
+              </p>
             </a>
-          </li> --}}
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/expense" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>List expenses</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/expense/create" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add expenses</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Transfers
+                <i class="fas fa-angle-left right"></i>
+
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/transfer" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>List transfers</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/sale/create" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add transfer</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Returns
+                <i class="fas fa-angle-left right"></i>
+
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/return" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>List return</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/return/create" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add return</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Supplier
+                <i class="fas fa-angle-left right"></i>
+
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/supplier" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>List supplier</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/supllier/create" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add supplier</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+          @if(auth()->user()->role->name=='Super Admin')
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Users
+                <i class="fas fa-angle-left right"></i>
+
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/user" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>See all users</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/user/create" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add user</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+          @endif
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Reports
+                <i class="fas fa-angle-left right"></i>
+
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/reports/sale" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sale report</p>
+                </a>
+              </li>
+              {{-- <li class="nav-item">
+                <a href="/user/create" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add user</p>
+                </a>
+              </li> --}}
+
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="/notifications" class="nav-link">
+              <i class="nav-icon fa fa-bell"></i>
+              <p>Notifications</p>
+            </a>
+          </li>
 
           <div class="line nav-item"></div>
           <li class="nav-item">
@@ -337,7 +493,7 @@
   @yield('content')
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="">RMS</a>.</strong>
+    <strong>Copyright &copy; 2014-2021 <a href="">OneStopCtg</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 0.0.1

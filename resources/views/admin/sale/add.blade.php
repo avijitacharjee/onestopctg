@@ -45,6 +45,7 @@
                                             <th>Sample</th>
                                             <th>Bounus</th>
                                             <th>Dr honor</th>
+                                            <th>Subtotal</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tbody">
@@ -60,6 +61,7 @@
                                             <th>Sample</th>
                                             <th>Bounus</th>
                                             <th>Dr honor</th>
+                                            <th>Subtotal</th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -239,6 +241,9 @@
                         <td>
                             <input type='number' min='0' id='discount${index}' name='discounts[]' class="form-control"/>
                         </td>
+                        <td id='subtotal${index}'>
+                            0
+                        </td>
                     </tr>
                     `
             );
@@ -247,7 +252,12 @@
             //     $('#subtotal' + index).html($subtotal);
 
             // });
-
+            $('#quantity' + index).change(function() {
+                $('#subtotal' + index).html($('#quantity' + index).val() * $('#price' + index).val()-$('#discount'+index).val());
+            });
+            $('#discount' + index).change(function() {
+                $('#subtotal' + index).html($('#quantity' + index).val() * $('#price' + index).val()-$('#discount'+index).val());
+            });
         });
         $('#previewButton').click(function(e) {
             e.preventDefault();
@@ -280,7 +290,7 @@
             }
             $('#total').html(total);
         });
-        $('#clearButton').click(function(e){
+        $('#clearButton').click(function(e) {
             e.preventDefault();
             $('#tbody').html('');
         });
