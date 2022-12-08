@@ -9,6 +9,6 @@ class Expense extends Model
 {
     use HasFactory;
     public function cateogory(){
-        return $this->belongsTo(ExpenseCategory::class);
+        return $this->belongsTo(ExpenseCategory::class,'expense_category_id');
     }
 }

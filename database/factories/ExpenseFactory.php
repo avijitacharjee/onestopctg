@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ExpenseCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,11 @@ class ExpenseFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'expense_category_id'=>ExpenseCategory::inRandomOrder()->first()->id,
+            'name'=>fake()->word(),
+            'amount'=>rand(1,100),
+            'date'=>fake()->date('Y-m-d'),
+            'note'=>fake()->paragraph(1)
         ];
     }
 }

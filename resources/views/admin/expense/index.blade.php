@@ -11,12 +11,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1>Expense</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
+              <li class="breadcrumb-item active">Expense</li>
             </ol>
           </div>
         </div>
@@ -31,7 +31,7 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Products</h3>
+                <h3 class="card-title">Expenses</h3>
 
               </div>
               <!-- /.card-header -->
@@ -40,35 +40,28 @@
                   <thead>
                   <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Generic name</th>
-                    <th>Group name</th>
-                    <th>Batch name</th>
-                    <th>Expiry date</th>
-                    <th>COG</th>
-                    <th>Sale price</th>
-                    <th>Quantity</th>
-                    <th>Alert Quantity</th>
+                    <th>Expense</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Note</th>
                     <th>Action</th>
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
 
-                    @foreach ($products as $product)
+                    @foreach ($expenses as $expense)
                         <tr>
                             <td>{{$loop->index+1}}</td>
-                            <td>{{$product->name}}</td>
-                            <td>{{$product->generic_name}}</td>
-                            <td>{{$product->group_name}}</td>
-                            <td>{{$product->batch_name}}</td>
-                            <td>{{$product->expire_date}}</td>
-                            <td>{{$product->cost_of_goods}}</td>
-                            <td>{{$product->sale_price}}</td>
-                            <td>{{$product->quantity}}</td>
-                            <td>{{$product->alert_quantity}}</td>
+                            <td>{{$expense->name}}</td>
+                            <td>{{$expense->cateogory->name}}</td>
+                            <td>{{$expense->amount}}</td>
+                            <td>{{date('jS M, Y',strtotime($expense->date))}}</td>
+                            <td>{{$expense->note}}</td>
+
                             <td>
-                                <form action="/product/{{$product->id}}" method="POST">
+                                <form action="/expense/{{$expense->id}}" method="POST">
                                     @csrf
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button type="submit" style="border: none;">
@@ -77,7 +70,7 @@
                                 </form>
                             </td>
                             <td>
-                                <a href="/product/{{$product->id}}/edit">
+                                <a href="/expense/{{$expense->id}}/edit">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </td>
@@ -87,15 +80,11 @@
                   <tfoot>
                   <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Generic name</th>
-                    <th>Group name</th>
-                    <th>Batch name</th>
-                    <th>Expiry date</th>
-                    <th>COG</th>
-                    <th>Sale price</th>
-                    <th>Quantity</th>
-                    <th>Alert Quantity</th>
+                    <th>Expense</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Note</th>
                     <th>Action</th>
                     <th>Action</th>
                   </tr>

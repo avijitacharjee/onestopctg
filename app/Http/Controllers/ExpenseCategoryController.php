@@ -38,7 +38,10 @@ class ExpenseCategoryController extends Controller
      */
     public function store(StoreExpenseCategoryRequest $request)
     {
-        //
+        $expenseCategory = new ExpenseCategory();
+        $expenseCategory->name = $request->name;
+        $expenseCategory->save();
+        return back()->with('message','Successfully Added');
     }
 
     /**
@@ -67,6 +70,7 @@ class ExpenseCategoryController extends Controller
      */
     public function destroy(ExpenseCategory $expenseCategory)
     {
+        $expenseCategory->expenses->each->delete();
         $expenseCategory->delete();
         return back();
     }

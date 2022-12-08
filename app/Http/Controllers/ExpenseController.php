@@ -15,7 +15,8 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        //
+        $expenses = Expense::all();
+        return view('admin.expense.index')->with('expenses',$expenses);
     }
 
     /**
@@ -81,6 +82,7 @@ class ExpenseController extends Controller
      */
     public function destroy(Expense $expense)
     {
-        //
+        $expense->delete();
+        return back();
     }
 }

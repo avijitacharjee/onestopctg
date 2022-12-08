@@ -14,7 +14,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>DataTables</h1>
+                        <h1>Expense category</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -33,9 +33,21 @@
                     <div class="col-12">
 
                         <div class="card">
+                            <form action="/expense-category/" method="POST" class="mx-3">
+                                @csrf
+                                <div class="form-group">
+                                    <label>Add category</label>
+                                    <input type="text" placeholder="Category name" name="name" class="form-control">
+                                </div>
+                                <button style="float: right;" type="submit" class="btn btn-primary">Add Category</button>
+                            </form>
+                            @if (session('message'))
+                                <ul>
+                                    <li style="color: green">{{session('message')}}</li>
+                                </ul>
+                            @endif
                             <div class="card-header">
                                 <h3 class="card-title">Categories</h3>
-
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
