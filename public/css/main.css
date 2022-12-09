@@ -1,3 +1,10 @@
 .main-sidebar {
     background-color: #212529 !important;
+    background-color: #101010 !important;
+}
+.nav-link i {
+    color: white !important;
+}
+.navbar-black {
+    background-color: #212529 !important;
 }

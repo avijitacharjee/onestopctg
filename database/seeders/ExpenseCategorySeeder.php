@@ -15,10 +15,11 @@ class ExpenseCategorySeeder extends Seeder
      */
     public function run()
     {
-        for($i=0;$i<10;$i++){
-            $expenseCategory = new ExpenseCategory();
-            $expenseCategory->name = fake()->word();
-            $expenseCategory->save();
-        }
+        // for($i=0;$i<10;$i++){
+        //     $expenseCategory = new ExpenseCategory();
+        //     $expenseCategory->name = fake()->word();
+        //     $expenseCategory->save();
+        // }
+        ExpenseCategory::factory()->count(10)->create();
     }
 }

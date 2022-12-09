@@ -18,4 +18,7 @@ class Product extends Model
             get: fn($value)=>$this->saleItems()->sum('quantity')
         );
     }
+    public function warehouses(){
+        return $this->belongsToMany(Warehouse::class);
+    }
 }

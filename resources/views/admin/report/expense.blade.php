@@ -51,7 +51,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Date/Month</th>
-                                            <th>Amount</th>
+                                            <th>Amount (bdt)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -68,7 +68,7 @@
                                                     @endif
                                                 </td>
                                                 {{-- <td>{{ $expense->cateogory->name }}</td> --}}
-                                                <td>{{ $expense->amount }}</td>
+                                                <td>&#2547;{{ $expense->amount }}</td>
 
                                             </tr>
                                         @endforeach
