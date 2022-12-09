@@ -11,12 +11,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Expense</h1>
+                        <h1>Supplier</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Expense</li>
+                            <li class="breadcrumb-item active">Supplier</li>
                         </ol>
                     </div>
                 </div>
@@ -30,17 +30,25 @@
                     <div class="col-12">
 
                         <div class="card">
-                            <button id="previewButton" type="button" class="btn btn-primary m-3" data-toggle="modal"
-                                style="width: 25%;" data-target="#addModal" class="btn btn-success">+Add Expense</button>
+                            <button id="previewButton" type="button" class="btn btn-primary m-4" data-toggle="modal"
+                                style="width: 25%;" data-target="#addModal" class="btn btn-success">+Add Supplier</button>
+                            @if (session('message'))
+                                <div style="color: green">
+                                    <ul>
+                                        <li>{{ session('message') }}</li>
+                                    </ul>
+                                </div>
+                            @endif
                             <div class="modal fade .modal-xl" id="addModal" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <form action="/expense" method="POST">
+                                <form action="/supplier/" method="POST">
                                     @csrf
                                     <div class="modal-dialog modal-dialog-centered " role="document" style="width:100%;">
+
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLongTitle">
-                                                    Add expense</h5>
+                                                    Add Supplier</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -50,31 +58,21 @@
                                                 <div class="form-group">
                                                     <label for="">Name</label>
                                                     <input type="text" name="name" class="form-control" id=""
-                                                        placeholder="Category Name">
+                                                        placeholder="Name">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="">Category</label>
-                                                    <select name="category_id" id="" class="form-control">
-                                                        @foreach ($categories as $category)
-                                                            <option value="{{ $category->id }}">
-                                                                {{ $category->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
+                                                    <label for="">Email</label>
+                                                    <input type="text" name="email" class="form-control" id=""
+                                                        placeholder="Email">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="">Amount</label>
-                                                    <input type="number" name="amount" class="form-control" id=""
-                                                        placeholder="Amount">
+                                                    <label for="">Phone</label>
+                                                    <input type="text" name="phone" class="form-control" id=""
+                                                        placeholder="Phone">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="">Date</label>
-                                                    <input type="date" name="date" class="form-control" id=""
-                                                        placeholder="Date">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="">Note</label>
-                                                    <textarea type="text" name="note" class="form-control" id="" placeholder="Add some note.."></textarea>
+                                                    <label for="">Address</label>
+                                                    <textarea type="text" name="address" class="form-control" id="" placeholder="Address.."></textarea>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -86,8 +84,10 @@
                                     </div>
                                 </form>
                             </div>
+
                             <div class="card-header">
-                                <h3 class="card-title">Expenses</h3>
+                                <h3 class="card-title">Products</h3>
+
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -95,28 +95,25 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Expense</th>
-                                            <th>Category</th>
-                                            <th>Amount</th>
-                                            <th>Date</th>
-                                            <th>Note</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Address</th>
                                             <th>Action</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
-                                        @foreach ($expenses as $expense)
+                                        @foreach ($suppliers as $supplier)
                                             <tr>
                                                 <td>{{ $loop->index + 1 }}</td>
-                                                <td>{{ $expense->name }}</td>
-                                                <td>{{ $expense->cateogory->name }}</td>
-                                                <td>{{ $expense->amount }}</td>
-                                                <td>{{ date('jS M, Y', strtotime($expense->date)) }}</td>
-                                                <td>{{ $expense->note }}</td>
-
+                                                <td>{{ $supplier->name }}</td>
+                                                <td>{{ $supplier->email }}</td>
+                                                <td>{{ $supplier->phone }}</td>
+                                                <td>{{ $supplier->address }}</td>
                                                 <td>
-                                                    <form action="/expense/{{ $expense->id }}" method="POST">
+                                                    <form action="/customer/{{ $supplier->id }}" method="POST">
                                                         @csrf
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         <button type="submit" style="border: none;">
@@ -126,12 +123,12 @@
                                                 </td>
                                                 <td>
                                                     <button id="previewButton" type="button" class="btn btn-primary"
-                                                        data-toggle="modal" data-target="#editModal{{ $expense->id }}"
+                                                        data-toggle="modal" data-target="#editModal{{ $supplier->id }}"
                                                         class="btn btn-success"><i class="fa fa-edit"></i></button>
-                                                    <div class="modal fade .modal-xl" id="editModal{{ $expense->id }}"
+                                                    <div class="modal fade .modal-xl" id="editModal{{ $supplier->id }}"
                                                         tabindex="-1" role="dialog"
                                                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                        <form action="/expense/{{ $expense->id }}" method="POST">
+                                                        <form action="/supplier/{{ $supplier->id }}" method="POST">
                                                             @csrf
                                                             <div class="modal-dialog modal-dialog-centered "
                                                                 role="document" style="width:100%;">
@@ -140,7 +137,7 @@
                                                                     <div class="modal-header">
                                                                         <h5 class="modal-title"
                                                                             id="exampleModalLongTitle">
-                                                                            Update expense</h5>
+                                                                            Update supplier</h5>
                                                                         <button type="button" class="close"
                                                                             data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
@@ -153,39 +150,26 @@
                                                                             <label for="">Name</label>
                                                                             <input type="text" name="name"
                                                                                 class="form-control" id=""
-                                                                                value="{{ $expense->name }}"
+                                                                                value="{{ $supplier->name }}"
                                                                                 placeholder="Category Name">
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label for="">Category</label>
-                                                                            <select name="category_id" id=""
-                                                                                class="form-control">
-                                                                                @foreach ($categories as $category)
-                                                                                    <option @selected($category->id == $expense->expense_category_id)
-                                                                                        value="{{ $category->id }}">
-                                                                                        {{ $category->name }}
-                                                                                    </option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="">Amount</label>
-                                                                            <input type="number" name="amount"
+                                                                            <label for="">Email</label>
+                                                                            <input type="text" name="email"
                                                                                 class="form-control" id=""
-                                                                                value="{{ $expense->amount }}"
-                                                                                placeholder="Amount">
+                                                                                value="{{ $supplier->email }}"
+                                                                                placeholder="Email">
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label for="">Date</label>
-                                                                            <input type="date" name="date"
+                                                                            <label for="">Phone</label>
+                                                                            <input type="text" name="phone"
                                                                                 class="form-control" id=""
-                                                                                value="{{ $expense->date }}"
-                                                                                placeholder="Date">
+                                                                                value="{{ $supplier->phone }}"
+                                                                                placeholder="Phone">
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label for="">Note</label>
-                                                                            <textarea type="text" name="note" class="form-control" id="" tex="{{ $expense->note }}"
-                                                                                placeholder="Add some note..">{{ $expense->note }}</textarea>
+                                                                            <label for="">Address</label>
+                                                                            <textarea type="text" name="address" class="form-control" id="" placeholder="Add some note..">{{ $supplier->address }}</textarea>
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
@@ -205,11 +189,10 @@
                                     <tfoot>
                                         <tr>
                                             <th>#</th>
-                                            <th>Expense</th>
-                                            <th>Category</th>
-                                            <th>Amount</th>
-                                            <th>Date</th>
-                                            <th>Note</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Address</th>
                                             <th>Action</th>
                                             <th>Action</th>
                                         </tr>

@@ -29,13 +29,6 @@ class ExpenseCategoryController extends Controller
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreExpenseCategoryRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreExpenseCategoryRequest $request)
     {
         $expenseCategory = new ExpenseCategory();

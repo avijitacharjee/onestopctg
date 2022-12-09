@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Expense;
 use App\Http\Requests\StoreExpenseRequest;
 use App\Http\Requests\UpdateExpenseRequest;
+use App\Models\ExpenseCategory;
 
 class ExpenseController extends Controller
 {
@@ -16,7 +17,10 @@ class ExpenseController extends Controller
     public function index()
     {
         $expenses = Expense::all();
-        return view('admin.expense.index')->with('expenses',$expenses);
+        $categories = ExpenseCategory::all();
+        return view('admin.expense.index')
+            ->with('expenses',$expenses)
+            ->with('categories',$categories);
     }
 
     /**
@@ -37,7 +41,14 @@ class ExpenseController extends Controller
      */
     public function store(StoreExpenseRequest $request)
     {
-        //
+        $expense = new Expense();
+        $expense->expense_category_id = $request->category_id;
+        $expense->name = $request->name;
+        $expense->amount = $request->amount;
+        $expense->date = $request->date;
+        $expense->note = $request->note;
+        $expense->save();
+        return back()->with('message', 'Updated successfully');
     }
 
     /**
@@ -71,7 +82,13 @@ class ExpenseController extends Controller
      */
     public function update(UpdateExpenseRequest $request, Expense $expense)
     {
-        //
+        $expense->expense_category_id = $request->category_id;
+        $expense->name = $request->name;
+        $expense->amount = $request->amount;
+        $expense->date = $request->date;
+        $expense->note = $request->note;
+        $expense->save();
+        return back()->with('message', 'Updated successfully');
     }
 
     /**

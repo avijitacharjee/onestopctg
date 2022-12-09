@@ -4,7 +4,9 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
@@ -28,7 +30,8 @@ Route::resources([
     'sale'=>SaleController::class,
     'expense-category'=>ExpenseCategoryController::class,
     'product'=>ProductController::class,
-    'expense'=>ExpenseController::class
+    'expense'=>ExpenseController::class,
+    'supplier'=>SupplierController::class
 ]);
 Route::post('/login', [UserController::class,'login']);
 Route::get('logout', [UserController::class, 'logout']);
@@ -46,4 +49,11 @@ Route::group([
 Route::group([
     'controller' => ExpenseCategoryController::class
 ],function(){
+});
+Route::group([
+    'controller' => ReportController::class,
+    'prefix'=>'reports'
+], function () {
+    Route::get('product', 'productReport');
+    Route::get('customer', 'customerReport');
 });

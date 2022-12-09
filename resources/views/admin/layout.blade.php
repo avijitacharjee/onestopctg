@@ -26,7 +26,7 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('lte/plugins/summernote/summernote-bs4.min.css')}}">
 
-  <link rel="stylesheet" href="{{asset('asset/main.css')}}">
+  <link rel="stylesheet" href="{{asset('css/main.css')}}">
   @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -38,7 +38,7 @@
   </div>
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light ">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -209,7 +209,7 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
@@ -233,7 +233,7 @@
           @if(auth()->user()->permissions->contains('name','product') || auth()->user()->role->name=='Super Admin')
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-tags"></i>
               <p>
                 Products
                 <i class="fas fa-angle-left right"></i>
@@ -265,7 +265,7 @@
           @if(auth()->user()->permissions->contains('name','customer') || auth()->user()->role->name=='Super Admin')
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Customers
                 <i class="fas fa-angle-left right"></i>
@@ -292,7 +292,7 @@
           @if(auth()->user()->permissions->contains('name','sale') || auth()->user()->role->name=='Super Admin')
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fa fa-shopping-cart"></i>
               <p>
                 Sales
                 <i class="fas fa-angle-left right"></i>
@@ -318,8 +318,7 @@
           @endif
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
+                <i class="nav-icon far fa-money-bill-alt"></i>              <p>
                 Expenses
                 <i class="fas fa-angle-left right"></i>
 
@@ -329,13 +328,13 @@
               <li class="nav-item">
                 <a href="/expense" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>List expenses</p>
+                  <p>Expenses</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/expense/create" class="nav-link">
+                <a href="/expense-category" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add expenses</p>
+                  <p>Expense Categories</p>
                 </a>
               </li>
 
@@ -343,7 +342,7 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-exchange-alt"></i>
               <p>
                 Transfers
                 <i class="fas fa-angle-left right"></i>
@@ -368,7 +367,7 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-undo-alt"></i>
               <p>
                 Returns
                 <i class="fas fa-angle-left right"></i>
@@ -393,7 +392,7 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-truck"></i>
               <p>
                 Supplier
                 <i class="fas fa-angle-left right"></i>
@@ -407,19 +406,12 @@
                   <p>List supplier</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="/supllier/create" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Add supplier</p>
-                </a>
-              </li>
-
             </ul>
           </li>
           @if(auth()->user()->role->name=='Super Admin')
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-user"></i>
               <p>
                 Users
                 <i class="fas fa-angle-left right"></i>
@@ -445,7 +437,7 @@
           @endif
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-chart-line"></i>
               <p>
                 Reports
                 <i class="fas fa-angle-left right"></i>
@@ -459,13 +451,72 @@
                   <p>Sale report</p>
                 </a>
               </li>
-              {{-- <li class="nav-item">
-                <a href="/user/create" class="nav-link">
+              <li class="nav-item">
+                <a href="/reports/product" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add user</p>
+                  <p>Product report</p>
                 </a>
-              </li> --}}
-
+              </li>
+              <li class="nav-item">
+                <a href="/reports/best-sale" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Best sale</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/reports/quantity-alert" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Quantity alert</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/reports/expiry-alert" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Expiry alert</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/reports/daily-sales" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daily sales</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/reports/monthly-sales" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Monthly sales</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/reports/supplier-report" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Supplier report</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/reports/customer" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Customer report</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/reports/sale" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Expense report</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/reports/sale" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Payment report</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/reports/sale" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tax report</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item">
