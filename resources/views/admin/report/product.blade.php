@@ -66,7 +66,7 @@
                             <td>{{$product->sale_price}}</td>
                             <td>{{$product->quantity}}</td>
                             <td>{{$product->alert_quantity}}</td> --}}
-                            <td>{{$product->sold_quantity}}</td>
+                            <td>{{$product->sold_quantity}} pc</td>
                         </tr>
                     @endforeach
                   </tbody>

@@ -26,14 +26,14 @@ Route::get('/', function () {
     return view('admin.login');
 });
 Route::resources([
-    'customer'=>CustomerController::class,
-    'sale'=>SaleController::class,
-    'expense-category'=>ExpenseCategoryController::class,
-    'product'=>ProductController::class,
-    'expense'=>ExpenseController::class,
-    'supplier'=>SupplierController::class
+    'customer' => CustomerController::class,
+    'sale' => SaleController::class,
+    'expense-category' => ExpenseCategoryController::class,
+    'product' => ProductController::class,
+    'expense' => ExpenseController::class,
+    'supplier' => SupplierController::class
 ]);
-Route::post('/login', [UserController::class,'login']);
+Route::post('/login', [UserController::class, 'login']);
 Route::get('logout', [UserController::class, 'logout']);
 Route::view('dashboard', 'admin.dashboard');
 Route::view('add-csv', 'admin.product.add-csv');
@@ -42,18 +42,20 @@ Route::post('/add-csv', [ProductController::class, 'addCsv']);
 Route::resource('user', UserController::class);
 Route::group([
     'controller' => ProductController::class,
-],function(){
-    Route::get('reports/sale','saleReport');
+], function () {
+    Route::get('reports/sale', 'saleReport');
     Route::get('csv-sample', 'csvSample');
 });
 Route::group([
     'controller' => ExpenseCategoryController::class
-],function(){
+], function () {
 });
 Route::group([
     'controller' => ReportController::class,
-    'prefix'=>'reports'
+    'prefix' => 'reports'
 ], function () {
     Route::get('product', 'productReport');
     Route::get('customer', 'customerReport');
+    Route::get('supplier', 'supplierReport');
+    Route::get('expense','expenseReport');
 });

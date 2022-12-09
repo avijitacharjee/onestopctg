@@ -11,7 +11,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Customer report</h1>
+            <h1>Supplier report</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -31,7 +31,7 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Top customers</h3>
+                <h3 class="card-title">Top suppliers</h3>
 
               </div>
               <!-- /.card-header -->
@@ -43,20 +43,20 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Zone</th>
+                    <th>Address</th>
                     <th>Total Sold (bdt)</th>
                   </tr>
                   </thead>
                   <tbody>
 
-                    @foreach ($customers as $customer)
+                    @foreach ($suppliers as $supplier)
                         <tr>
                             <td>{{$loop->index+1}}</td>
-                            <td>{{$customer->name}}</td>
-                            <td>{{$customer->email}}</td>
-                            <td>{{$customer->phone}}</td>
-                            <td>{{$customer->zone}}</td>
-                            <td>&#2547;{{$customer->total_sold}}</td>
+                            <td>{{$supplier->name}}</td>
+                            <td>{{$supplier->email}}</td>
+                            <td>{{$supplier->phone}}</td>
+                            <td>{{$supplier->address}}</td>
+                            <td>&#2547;{{$supplier->total_sold}}</td>
                         </tr>
                     @endforeach
                   </tbody>
