@@ -10,15 +10,18 @@ class Product extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function saleItems(){
+    public function saleItems()
+    {
         return $this->hasMany(SaleItem::class);
     }
-    public function soldQuantity(): Attribute {
+    public function soldQuantity(): Attribute
+    {
         return Attribute::make(
-            get: fn($value)=>$this->saleItems()->sum('quantity')
+            get: fn ($value) => $this->saleItems()->sum('quantity')
         );
     }
-    public function warehouses(){
-        return $this->belongsToMany(Warehouse::class);
+    public function warehouses()
+    {
+        return $this->belongsToMany(Warehouse::class)->withTimestamps();
     }
 }

@@ -15,7 +15,7 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.warehouse.index')->with('warehouses', Warehouse::all());
     }
 
     /**
@@ -36,7 +36,10 @@ class WarehouseController extends Controller
      */
     public function store(StoreWarehouseRequest $request)
     {
-        //
+        $warehouse = new Warehouse();
+        $warehouse->name = $request->name;
+        $warehouse->save();
+        return back();
     }
 
     /**
@@ -70,7 +73,9 @@ class WarehouseController extends Controller
      */
     public function update(UpdateWarehouseRequest $request, Warehouse $warehouse)
     {
-        //
+        $warehouse->name = $request->name;
+        $warehouse->save();
+        return back()->with('message','Updated successfully');
     }
 
     /**
@@ -81,6 +86,7 @@ class WarehouseController extends Controller
      */
     public function destroy(Warehouse $warehouse)
     {
-        //
+        $warehouse->delete();
+        return back()->with('message',"");
     }
 }

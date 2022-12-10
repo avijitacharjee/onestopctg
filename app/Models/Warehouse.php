@@ -9,6 +9,6 @@ class Warehouse extends Model
 {
     use HasFactory;
     public function products(){
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->withTimestamps();
     }
 }

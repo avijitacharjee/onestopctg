@@ -6,13 +6,14 @@ use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function login(Request $request){
         $user = User::where('email',$request->email)->first();
         if($user){
-            if($user->password == $request->password){
+            if(Hash::check( $request->password,$user->password)){
                 Auth::login($user);
                 return redirect('/dashboard');
             }else {

@@ -22,7 +22,7 @@ class ProductFactory extends Factory
             'generic_name'=>fake()->name(),
             'group_name'=>fake()->name(),
             'batch_name'=>'A',
-            'expriry_date'=>fake()->date(),
+            'expire_date'=>fake()->date(),
             'cost_of_goods'=>rand(1,10),
             'sale_price'=>rand(10,20),
             'quantity'=>10000,

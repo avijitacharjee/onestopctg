@@ -44,6 +44,7 @@
 
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-black navbar-dark">
+             {{-- style="margin-top: -24px;"> --}}
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -555,6 +556,14 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/warehouse" class="nav-link">
+                                <i class="nav-icon fas fa-warehouse"></i>
+                                <p>
+                                    Warehouse
+                                </p>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="/notifications" class="nav-link">
