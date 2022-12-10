@@ -19,6 +19,7 @@ class ExpenseFactory extends Factory
     {
         return [
             'expense_category_id'=>ExpenseCategory::inRandomOrder()->first()->id,
+            // 'expense_category_id'=>ExpenseCategory::factory(),
             'name'=>fake()->word(),
             'amount'=>rand(1,100),
             'date'=>fake()->date('Y-m-d'),

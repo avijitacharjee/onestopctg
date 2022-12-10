@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ProductWarehouse;
 use App\Models\Warehouse;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -17,7 +18,7 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
-        return [
+        $product = [
             'name'=>fake()->name(),
             'generic_name'=>fake()->name(),
             'group_name'=>fake()->name(),
@@ -28,5 +29,7 @@ class ProductFactory extends Factory
             'quantity'=>10000,
             'alert_quantity'=>100,
         ];
+        return $product;
+
     }
 }

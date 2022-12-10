@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\ProductWarehouse;
 use App\Models\Sale;
+use App\Models\Warehouse;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 
@@ -83,12 +85,29 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.product.add');
+        $warehouse = Warehouse::all();
+        return view('admin.product.add')
+            ->with('warehouses', $warehouse);
     }
 
     public function store(StoreProductRequest $request)
     {
-        Product::create($request->all());
+        $product = new Product();
+        $product->name = $request->name;
+        $product->generic_name = $request->generic_name;
+        $product->group_name = $request->group_name;
+        $product->batch_name = $request->batch_name;
+        $product->expire_date = $request->expire_date;
+        $product->cost_of_goods = $request->cost_of_goods;
+        $product->sale_price =  $request->sale_price;
+        $product->quantity = $request->quantity;
+        $product->alert_quantity = $request->alert_quantity;
+        $product->save();
+        $productWarehouse = new ProductWarehouse();
+        $productWarehouse->product_id = $product->id;
+        $productWarehouse->warehouse_id = $request->warehouse_id;
+        $productWarehouse->stock = $request->quantity;
+        $productWarehouse->save();
         return back()->with('message', 'Succesfully Added');
     }
 
