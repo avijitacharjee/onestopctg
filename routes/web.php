@@ -25,9 +25,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.login');
-});
+
+
+Route::redirect('/', '/login');
+Route::view('/login', 'admin.login');
+Route::post('/login', [UserController::class, 'login']);
+Route::get('logout', [UserController::class, 'logout']);
+
 Route::middleware(AuthMiddleware::class)->group(function () {
     Route::resources([
         'customer' => CustomerController::class,
@@ -38,8 +42,6 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         'supplier' => SupplierController::class,
         'warehouse' => WarehouseController::class
     ]);
-    Route::post('/login', [UserController::class, 'login']);
-    Route::get('logout', [UserController::class, 'logout']);
     Route::view('dashboard', 'admin.dashboard');
     Route::view('add-csv', 'admin.product.add-csv');
     Route::post('/add-csv', [ProductController::class, 'addCsv']);

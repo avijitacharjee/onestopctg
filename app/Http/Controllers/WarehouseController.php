@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Warehouse;
 use App\Http\Requests\StoreWarehouseRequest;
 use App\Http\Requests\UpdateWarehouseRequest;
+use App\Models\Product;
 
 class WarehouseController extends Controller
 {
@@ -39,7 +40,7 @@ class WarehouseController extends Controller
         $warehouse = new Warehouse();
         $warehouse->name = $request->name;
         $warehouse->save();
-        return back();
+        return back()->with('message','Successfully saved');
     }
 
     /**

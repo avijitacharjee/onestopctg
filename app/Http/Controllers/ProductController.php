@@ -10,6 +10,7 @@ use App\Models\Sale;
 use App\Models\Warehouse;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -71,11 +72,26 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-
         $products = Product::all();
-        return view('admin.product.index')->with('products', $products);
+        if ($request->warehouse) {
+            if ($request->warehouse > -1) {
+                $products = DB::table('products')
+                    ->leftJoin('product_warehouses', 'products.id', '=', 'product_warehouses.product_id')
+                    ->select('products.*', 'product_warehouses.stock as stock')
+                    ->where('product_warehouses.warehouse_id', '=', $request->warehouse)
+                    ->where('stock','>',0)
+                    ->get();
+                // return $products;
+                // ->get();
+            }
+        }
+        $warehouses = Warehouse::all();
+        return view('admin.product.index')
+            ->with('products', $products)
+            ->with('warehouses', $warehouses)
+            ->with('selected',$request->warehouse);
     }
 
     /**
@@ -103,11 +119,16 @@ class ProductController extends Controller
         $product->quantity = $request->quantity;
         $product->alert_quantity = $request->alert_quantity;
         $product->save();
+        // $warehouses = Warehouse::all();
+        // foreach ($warehouses as $warehouse) {
+        $warehouse = Warehouse::find($request->warehouse_id);
         $productWarehouse = new ProductWarehouse();
         $productWarehouse->product_id = $product->id;
-        $productWarehouse->warehouse_id = $request->warehouse_id;
+        $productWarehouse->warehouse_id = $warehouse->id;
         $productWarehouse->stock = $request->quantity;
         $productWarehouse->save();
+
+
         return back()->with('message', 'Succesfully Added');
     }
 
