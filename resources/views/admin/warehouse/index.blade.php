@@ -56,7 +56,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Name</th>
-                                            <th>Action</th>
+                                            {{-- <th>Action</th> --}}
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -66,7 +66,7 @@
                                             <tr>
                                                 <td>{{ $loop->index + 1 }}</td>
                                                 <td>{{ $warehouse->name }}</td>
-                                                <td>
+                                                {{-- <td>
                                                     <form action="/warehouse/{{ $warehouse->id }}" method="POST">
                                                         @csrf
                                                         <input type="hidden" name="_method" value="DELETE">
@@ -74,7 +74,7 @@
                                                             <i class="fa fa-trash"></i>
                                                         </button>
                                                     </form>
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     <button id="previewButton" type="button" class="btn btn-primary"
                                                         data-toggle="modal" data-target="#editModal{{ $warehouse->id }}"
@@ -124,7 +124,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Name</th>
-                                            <th>Action</th>
+                                            {{-- <th>Action</th> --}}
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>

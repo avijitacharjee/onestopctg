@@ -52,6 +52,9 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     ], function () {
         Route::get('reports/sale', 'saleReport');
         Route::get('csv-sample', 'csvSample');
+        Route::get('transfer','transferIndex');
+        Route::get('transfer/create', 'createTransfer');
+        Route::post('transfer', 'storeTransfer');
     });
     Route::group([
         'controller' => ExpenseCategoryController::class

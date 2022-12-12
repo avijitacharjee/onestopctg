@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Dashboard</title>
+    <title>POS | OneStopCtg</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -389,15 +389,15 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="/transfer" class="nav-link">
+                                    <a href="/transfer/create" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>List transfers</p>
+                                        <p>Add transfer</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/sale/create" class="nav-link">
+                                    <a href="/transfer" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Add transfer</p>
+                                        <p>Transfer History</p>
                                     </a>
                                 </li>
 

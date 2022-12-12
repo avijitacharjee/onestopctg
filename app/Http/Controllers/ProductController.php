@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\ProductWarehouse;
 use App\Models\Sale;
+use App\Models\Transfer;
 use App\Models\Warehouse;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
@@ -81,7 +82,7 @@ class ProductController extends Controller
                     ->leftJoin('product_warehouses', 'products.id', '=', 'product_warehouses.product_id')
                     ->select('products.*', 'product_warehouses.stock as stock')
                     ->where('product_warehouses.warehouse_id', '=', $request->warehouse)
-                    ->where('stock','>',0)
+                    ->where('stock', '>', 0)
                     ->get();
                 // return $products;
                 // ->get();
@@ -91,7 +92,7 @@ class ProductController extends Controller
         return view('admin.product.index')
             ->with('products', $products)
             ->with('warehouses', $warehouses)
-            ->with('selected',$request->warehouse);
+            ->with('selected', $request->warehouse);
     }
 
     /**
@@ -167,5 +168,49 @@ class ProductController extends Controller
         );
 
         return response()->download($file, 'products.csv', $headers);
+    }
+    public function transferIndex()
+    {
+        $transfers = Transfer::all();
+        return view('admin.transfer.index')
+            ->with('transfers', $transfers);
+    }
+    public function createTransfer()
+    {
+        $warehouses = Warehouse::all();
+        $products = Product::all();
+        return view('admin.transfer.add')
+            ->with('warehouses', $warehouses)
+            ->with('products', $products);
+    }
+    public function storeTransfer(Request $request)
+    {
+
+        $transfer = new Transfer();
+        // $fromWarehouse = Warehouse::find($request->from_warehouse);
+        $fromProductWarehouse = ProductWarehouse::where('warehouse_id', $request->from_warehouse)->first();
+        // $stock = $fromWarehouse ? $fromWarehouse->stock : 0;
+        if (!$fromProductWarehouse) {
+            return back()->with('err', 'The quantity is not available in that warehouse');
+        }
+        if ($fromProductWarehouse->stock < $request->quantity) {
+            return back()->with('err', 'The quantity is not available in that warehouse');
+        }
+        $fromProductWarehouse->stock -= $request->quantity;
+        $fromProductWarehouse->save();
+
+        $toProductWarehouse = ProductWarehouse::firstOrNew(['warehouse_id'=>$request->to_warehouse]);
+        $toProductWarehouse->stock += $request->quantity;
+        $toProductWarehouse->save();
+
+        $transfer->from_warehouse = $request->from_warehouse;
+        $transfer->to_warehouse = $request->to_warehouse;
+        $transfer->product_id = $request->product_id;
+        $transfer->transfer_date = $request->transfer_date;
+        $transfer->reference_no = $request->reference_no;
+        $transfer->quantity = $request->quantity;
+        $transfer->shipping = $request->shipping;
+        $transfer->save();
+        return back()->with('message', 'Successfully saved');
     }
 }
