@@ -43,8 +43,6 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         'warehouse' => WarehouseController::class
     ]);
     Route::view('dashboard', 'admin.dashboard');
-    Route::view('add-csv', 'admin.product.add-csv');
-    Route::post('/add-csv', [ProductController::class, 'addCsv']);
 
     Route::resource('user', UserController::class);
     Route::group([
@@ -52,9 +50,18 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     ], function () {
         Route::get('reports/sale', 'saleReport');
         Route::get('csv-sample', 'csvSample');
-        Route::get('transfer','transferIndex');
+
+        Route::get('transfer', 'transferIndex');
         Route::get('transfer/create', 'createTransfer');
         Route::post('transfer', 'storeTransfer');
+
+        Route::get('return', 'returnIndex');
+        Route::get('return/create', 'createReturn');
+        Route::post('return', 'storeReturn');
+
+
+        Route::get('add-csv', 'addCsv');
+        Route::post('/add-csv',  'storeCsv');
     });
     Route::group([
         'controller' => ExpenseCategoryController::class
@@ -69,4 +76,9 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         Route::get('supplier', 'supplierReport');
         Route::get('expense', 'expenseReport');
     });
+    Route::fallback(
+        function () {
+            return view('errors.404');
+        }
+    );
 });

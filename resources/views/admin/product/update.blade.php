@@ -1,6 +1,7 @@
 @extends('admin.layout')
 @section('content')
     <section class="content content-wrapper">
+        <x-content-header name="Update product" subDirectory="Product" subDirectoryUrl="product"/>
         <div class="container-fluid">
             <div class="row">
                 <!-- left column -->

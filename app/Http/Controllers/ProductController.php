@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Customer;
 use App\Models\ProductWarehouse;
 use App\Models\Sale;
 use App\Models\Transfer;
@@ -38,7 +39,13 @@ class ProductController extends Controller
         return view('admin.report.sale')
             ->with('products', $products);
     }
-    public function addCsv(Request $request)
+    public function addCsv()
+    {
+        $warehouses = Warehouse::all();
+        return view('admin.product.add-csv')
+            ->with('warehouses', $warehouses);
+    }
+    public function storeCsv(Request $request)
     {
         $file = $request->file('csv');
         $lines = file($file, FILE_IGNORE_NEW_LINES);
@@ -58,6 +65,13 @@ class ProductController extends Controller
             $product->alert_quantity = trim($words[8], '"');
             $product->quantity = trim($words[9], '"');
             $product->save();
+
+            $warehouse = Warehouse::find($request->warehouse_id);
+            $productWarehouse = new ProductWarehouse();
+            $productWarehouse->product_id = $product->id;
+            $productWarehouse->warehouse_id = $warehouse->id;
+            $productWarehouse->stock =trim($words[9], '"');
+            $productWarehouse->save();
         }
         return back()->with('message', 'Successfully added to database');
     }
@@ -133,17 +147,6 @@ class ProductController extends Controller
         return back()->with('message', 'Succesfully Added');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
-    {
-        //
-    }
-
     public function edit(Product $product)
     {
         return view('admin.product.update')->with('product', $product);
@@ -199,7 +202,7 @@ class ProductController extends Controller
         $fromProductWarehouse->stock -= $request->quantity;
         $fromProductWarehouse->save();
 
-        $toProductWarehouse = ProductWarehouse::firstOrNew(['warehouse_id'=>$request->to_warehouse]);
+        $toProductWarehouse = ProductWarehouse::firstOrNew(['warehouse_id' => $request->to_warehouse]);
         $toProductWarehouse->stock += $request->quantity;
         $toProductWarehouse->save();
 
@@ -212,5 +215,19 @@ class ProductController extends Controller
         $transfer->shipping = $request->shipping;
         $transfer->save();
         return back()->with('message', 'Successfully saved');
+    }
+    public function returnIndex()
+    {
+        return view('admin.return.index');
+    }
+    public function createReturn()
+    {
+        $warehouses = Warehouse::all();
+        $products = Product::all();
+        $customers = Customer::all();
+        return view('admin.return.add')
+            ->with('warehouses', $warehouses)
+            ->with('products', $products)
+            ->with('customers', $customers);
     }
 }
