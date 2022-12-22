@@ -15,7 +15,10 @@ class UserController extends Controller
         if($user){
             if(Hash::check( $request->password,$user->password)){
                 Auth::login($user);
-                return redirect('/dashboard');
+                // if(session('url.intended')){
+
+                // }
+                return redirect()->intended('/dashboard');
             }else {
                 return back()->with('message', 'Invalid credentials');
             }
