@@ -1,4 +1,11 @@
 @extends('admin.layout')
+@section('css')
+<style>
+  .navbar {
+    margin-top: -25px;
+  }
+</style>
+@endsection
 @section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->

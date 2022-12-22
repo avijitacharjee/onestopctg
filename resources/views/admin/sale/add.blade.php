@@ -150,7 +150,7 @@
 @endsection
 @section('js')
     <script>
-        $.get("http://localhost:8000/api/customers", function(response) {
+        $.get(`${window.location.origin}/api/customers`, function(response) {
             console.log(response.data);
             var data = [];
             for (var i = 0; i < response.data.length; i++) {
@@ -181,7 +181,7 @@
 
         });
 
-        $.get("http://localhost:8000/api/products", function(response) {
+        $.get(`${window.location.origin}/api/products`, function(response) {
             console.log(response.data);
             var data = [];
             for (var i = 0; i < response.data.length; i++) {

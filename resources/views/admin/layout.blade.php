@@ -565,7 +565,7 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="/notifications" class="nav-link">
                                 <i class="nav-icon fa fa-bell"></i>
                                 <p>Notifications</p>
@@ -576,7 +576,7 @@
                                 <i class="nav-icon fa fa-cog"></i>
                                 <p>Settings</p>
                             </a>
-                        </li>
+                        </li> --}}
                         <div class="line nav-item"></div>
                         <li class="nav-item">
                             <a href="/logout" class="nav-link">

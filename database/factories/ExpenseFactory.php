@@ -23,7 +23,7 @@ class ExpenseFactory extends Factory
             'name'=>fake()->word(),
             'amount'=>rand(1,100),
             'date'=>fake()->date('Y-m-d'),
-            'note'=>fake()->paragraph(1)
+            'note'=>fake()->paragraph(1),
         ];
     }
 }
