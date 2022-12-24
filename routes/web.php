@@ -3,6 +3,7 @@
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaleController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Middleware\AuthMiddleware;
 use App\Models\Customer;
+use App\Models\Sale;
 use App\Models\Warehouse;
 use Illuminate\Support\Facades\Route;
 
@@ -40,11 +42,18 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         'product' => ProductController::class,
         'expense' => ExpenseController::class,
         'supplier' => SupplierController::class,
-        'warehouse' => WarehouseController::class
+        'warehouse' => WarehouseController::class,
+        'user'=>UserController::class,
+        'payment'=>PaymentController::class,
     ]);
     Route::view('dashboard', 'admin.dashboard');
+    Route::group([
+        'controller' => SaleController::class,
+        'prefix' => 'sale'
+    ], function () {
+        Route::get('pdf/{sale_id}','downloadPdf');
+    });
 
-    Route::resource('user', UserController::class);
     Route::group([
         'controller' => ProductController::class,
     ], function () {
@@ -81,4 +90,8 @@ Route::middleware(AuthMiddleware::class)->group(function () {
             return view('errors.404');
         }
     );
+});
+Route::get('/pdf', function () {
+    return view('admin.pdf.sale')
+        ->with('sale',Sale::first());
 });

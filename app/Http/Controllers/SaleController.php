@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateSaleRequest;
 use App\Models\Product;
 use App\Models\SaleItem;
 use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SaleController extends Controller
 {
@@ -30,7 +31,7 @@ class SaleController extends Controller
         // }
 
         return view('admin.sale.index')
-            ->with('sales',$sales);
+            ->with('sales', $sales);
     }
 
     /**
@@ -51,23 +52,15 @@ class SaleController extends Controller
      */
     public function store(StoreSaleRequest $request)
     {
-        Log::info($request->all());
         $sale = new Sale();
         $sale->customer_id = $request->customer_id;
-
-        $sale->product_ids = implode(',', $request->product_ids);
-        $sale->quantities = implode(',', $request->quantities);
-
-
-        $numOfProducts = count($request->product_ids);
         $sale->save();
 
-        $frees = [];
-        $total = 0;
-        for($i=0;$i<$numOfProducts;$i++){
+        $numOfProducts = count($request->product_ids);
+        for ($i = 0; $i < $numOfProducts; $i++) {
             $product = Product::find($request->product_ids[$i]);
             $finalQuantity =  $request->quantities[$i] + $request->samples[$i] + $request->bonuses[$i];
-            $product->quantity = $product->quantity-$finalQuantity;
+            $product->quantity = $product->quantity - $finalQuantity;
             $product->save();
 
             $saleItem = new SaleItem();
@@ -83,7 +76,7 @@ class SaleController extends Controller
             $saleItem->save();
         }
 
-        return back()->with('message','Successfully Added');
+        return back()->with('message', 'Successfully Added');
     }
 
     /**
@@ -128,6 +121,14 @@ class SaleController extends Controller
      */
     public function destroy(Sale $sale)
     {
-        //
+        $sale->saleItems->each->delete();
+        $sale->delete();
+        return back();
+    }
+    public function downloadPdf($sale_id)
+    {
+        $sale = Sale::find($sale_id);
+        $pdf = Pdf::loadView('admin.pdf.sale',['sale'=>$sale]);
+        return $pdf->download('sale.pdf');
     }
 }
