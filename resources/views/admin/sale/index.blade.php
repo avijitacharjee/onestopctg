@@ -116,14 +116,15 @@
                                                 {{-- <td>{{ $loop->iteration }}</td> --}}
                                                 <td>{{ $sale->date_text }}</td>
                                                 <td>{{ $sale->customer->name }}</td>
-                                                <td>{{ 'Completed' }}</td>
+                                                <td><span class="badge badge-success">Completed</span></td>
                                                 <td>{{ $sale->total }}</td>
                                                 <td>{{ $sale->paid }}</td>
                                                 <td>{{ $sale->due }}</td>
                                                 <td>{{ $sale->total_sample }}</td>
                                                 <td>{{ $sale->total_bonus }}</td>
                                                 <td>{{ $sale->total_discount }}</td>
-                                                <td>Paid
+                                                <td>
+                                                    <x-payment-status message="{{$sale->payment_status}}"/>
                                                 </td>
                                                 <td>
                                                     <div class="dropdown">

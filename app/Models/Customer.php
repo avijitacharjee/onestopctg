@@ -27,4 +27,26 @@ class Customer extends Model
             }
         );
     }
+    public function sales()
+    {
+        return $this->hasMany(Sale::class);
+    }
+    public function totalPaid(): Attribute
+    {
+        return Attribute::make(
+        get: fn($value) => $this->sales->sum('paid')
+        );
+    }
+    public function totalDue(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => $this->sales->sum('due')
+        );
+    }
+    public function totalDiscount(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) =>$this->sales->sum('total_discount')
+        );
+    }
 }

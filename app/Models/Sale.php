@@ -54,9 +54,10 @@ class Sale extends Model
             get: fn () => $this->total - $this->paid
         );
     }
-    public function paymentStatus(): Attribute {
+    public function paymentStatus(): Attribute
+    {
         return Attribute::make(
-            get: fn($value)=>$this->total==$this->paid
+            get: fn ($value) => ($this->total == $this->paid) ? "Paid" : ($this->paid == 0 ? "Pending" : "Due")
         );
     }
     public function payments()

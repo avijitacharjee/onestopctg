@@ -44,7 +44,10 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Zone</th>
-                    <th>Total Sold (bdt)</th>
+                    <th>Paid</th>
+                    <th>Due</th>
+                    <th>Dr honor</th>
+                    <th>Total (bdt)</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -56,7 +59,10 @@
                             <td>{{$customer->email}}</td>
                             <td>{{$customer->phone}}</td>
                             <td>{{$customer->zone}}</td>
-                            <td>&#2547;{{$customer->total_sold}}</td>
+                            <td>{{$customer->total_paid}}</td>
+                            <td>{{$customer->total_due}}</td>
+                            <td>{{$customer->total_discount}}</td>
+                            <td><b>&#2547;{{$customer->total_sold}}</b></td>
                         </tr>
                     @endforeach
                   </tbody>
@@ -67,6 +73,9 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Zone</th>
+                    <th>Paid</th>
+                    <th>Due</th>
+                    <th>Dr honor</th>
                     <th>Total Sold</th>
                   </tr>
                   </tfoot>
