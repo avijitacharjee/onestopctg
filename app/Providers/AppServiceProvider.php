@@ -27,6 +27,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::component('content-header', ContentHeader::class);
-        // Blade::component('payment-status',PaymentStatus::class);
+        Blade::if ('access', function ($permission) {
+            return auth()->user()->permissions->contains('name', $permission) ||
+                auth()->user()->role->name=='Super Admin';
+        });
     }
 }

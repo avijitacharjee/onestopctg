@@ -299,7 +299,7 @@
                                 </ul>
                             </li>
                         @endif
-                        @if (auth()->user()->permissions->contains('name', 'customer') || auth()->user()->role->name == 'Super Admin')
+                        @access('customer')
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-users"></i>
@@ -325,9 +325,9 @@
 
                                 </ul>
                             </li>
-                        @endif
-                        @if (auth()->user()->permissions->contains('name', 'sale') || auth()->user()->role->name == 'Super Admin')
-                            <li class="nav-item">
+                        @endaccess
+                        @access('sale')
+                        <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fa fa-shopping-cart"></i>
                                     <p>
@@ -352,7 +352,8 @@
 
                                 </ul>
                             </li>
-                        @endif
+                        @endaccess
+                        @access('expense')
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon far fa-money-bill-alt"></i>
@@ -378,6 +379,8 @@
 
                             </ul>
                         </li>
+                        @endaccess
+                        @access('transfer')
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-exchange-alt"></i>
@@ -400,9 +403,10 @@
                                         <p>Transfer History</p>
                                     </a>
                                 </li>
-
                             </ul>
                         </li>
+                        @endaccess
+                        @access('return')
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-undo-alt"></i>
@@ -428,6 +432,8 @@
 
                             </ul>
                         </li>
+                        @endaccess
+                        @access('supplier')
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-truck"></i>
@@ -446,6 +452,7 @@
                                 </li>
                             </ul>
                         </li>
+                        @endaccess
                         @if (auth()->user()->role->name == 'Super Admin')
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
@@ -473,6 +480,7 @@
                                 </ul>
                             </li>
                         @endif
+                        @access('report')
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-chart-line"></i>
@@ -557,6 +565,8 @@
                                 </li> --}}
                             </ul>
                         </li>
+                        @endaccess
+                        @access('warehouse')
                         <li class="nav-item">
                             <a href="/warehouse" class="nav-link">
                                 <i class="nav-icon fas fa-warehouse"></i>
@@ -565,6 +575,7 @@
                                 </p>
                             </a>
                         </li>
+                        @endaccess
                         {{-- <li class="nav-item">
                             <a href="/notifications" class="nav-link">
                                 <i class="nav-icon fa fa-bell"></i>
