@@ -18,8 +18,8 @@ class ProductController extends Controller
 {
     public function saleReport()
     {
-        $products = Product::all();
-        $sales = Sale::all();
+        $products = Product::with('saleItems')->get();
+        $sales = Sale::with('saleItems.product')->get();
         foreach ($products as $product) {
             $product->sales = 0;
             $product->revenue = 0;

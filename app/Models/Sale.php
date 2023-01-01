@@ -45,7 +45,7 @@ class Sale extends Model
     public function totalDiscount(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $this->saleItems()->sum('discount')
+            get: fn ($value) => $this->saleItems->sum('discount')
         );
     }
     public function due(): Attribute
@@ -63,5 +63,13 @@ class Sale extends Model
     public function payments()
     {
         return $this->hasMany(Payment::class);
+    }
+    public function totalSaleAmountAllTime(){
+        return $this->all()->sum('total');
+    }
+    public function profit(): Attribute {
+        return Attribute::make(
+            get: fn($value)=>$this->saleItems->sum('profit')
+        );
     }
 }

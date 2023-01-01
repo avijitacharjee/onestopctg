@@ -24,4 +24,14 @@ class SaleItem extends Model
             get: fn($value)=>$this->quantity * $this->price - $this->discount
         );
     }
+    public function totalCost(): Attribute {
+        return Attribute::make(
+            get: fn($value)=>$this->quantity * $this->cog
+        );
+    }
+    public function profit(): Attribute {
+        return Attribute::make(
+            get: fn($value)=>$this->total-$this->total_cost
+        );
+    }
 }

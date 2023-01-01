@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\PaymentController;
@@ -46,7 +47,6 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         'user'=>UserController::class,
         'payment'=>PaymentController::class,
     ]);
-    Route::view('dashboard', 'admin.dashboard');
     Route::group([
         'controller' => SaleController::class,
         'prefix' => 'sale'
@@ -84,6 +84,11 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         Route::get('customer', 'customerReport');
         Route::get('supplier', 'supplierReport');
         Route::get('expense', 'expenseReport');
+    });
+    Route::group([
+        'controller' => DashboardController::class,
+    ], function () {
+        Route::get('dashboard', 'dashboard');
     });
     Route::fallback(
         function () {

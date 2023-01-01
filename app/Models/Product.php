@@ -17,7 +17,7 @@ class Product extends Model
     public function soldQuantity(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $this->saleItems()->sum('quantity')
+            get: fn ($value) => $this->saleItems->sum('quantity')
         );
     }
     public function warehouses()
