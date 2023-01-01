@@ -124,15 +124,15 @@
                 <!-- Main row -->
                 <div class="row">
                     <!-- Left col -->
-                    <section class="col-lg-7 connectedSortable">
+                    <section class="col-lg-6 connectedSortable">
                         <!-- Custom tabs (Charts with tabs)-->
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">
                                     <i class="fas fa-chart-pie mr-1"></i>
-                                    Sales
+                                    Sales of last 12 months
                                 </h3>
-                                <div class="card-tools">
+                                {{-- <div class="card-tools">
                                     <ul class="nav nav-pills ml-auto">
                                         <li class="nav-item">
                                             <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
@@ -141,7 +141,7 @@
                                             <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> --}}
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 <div class="tab-content p-0">
@@ -150,9 +150,9 @@
                                         style="position: relative; height: 300px;">
                                         <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
                                     </div>
-                                    <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
+                                    {{-- <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
                                         <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div><!-- /.card-body -->
                         </div>
@@ -505,6 +505,37 @@
                         </div> --}}
                         <!-- /.card -->
                     </section>
+                    <section class="col-lg-6 connectedSortable">
+                        <!-- Custom tabs (Charts with tabs)-->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-chart-pie mr-1"></i>
+                                    Zone based Sales
+                                </h3>
+                                {{-- <div class="card-tools">
+                                    <ul class="nav nav-pills ml-auto">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#revenue-chart" data-toggle="tab">Area</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="#sales-chart" data-toggle="tab">Donut</a>
+                                        </li>
+                                    </ul>
+                                </div> --}}
+                            </div><!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="tab-content p-0">
+                                    <!-- Morris chart - Sales -->
+
+                                    <div class="chart tab-pane active" id="sales-chart" style="position: relative; height: 300px;">
+                                        <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
+                                    </div>
+                                </div>
+                            </div><!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </section>
                     <!-- /.Left col -->
                     <!-- right col (We are only adding the ID to make the widgets sortable)-->
                     <section class="col-lg-5 connectedSortable">
@@ -664,7 +695,7 @@
   // $('#revenue-chart').get(0).getContext('2d');
 
   var salesChartData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: <?php echo json_encode($months)?> ,
     datasets: [
       {
         label: 'Digital Goods',
@@ -675,7 +706,7 @@
         pointStrokeColor: 'rgba(60,141,188,1)',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(60,141,188,1)',
-        data: [28, 48, 40, 19, 86, 27, 90]
+        data: <?php echo json_encode($monthlySales)?>
       },
       {
         label: 'Electronics',
@@ -686,7 +717,7 @@
         pointStrokeColor: '#c1c7d1',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(220,220,220,1)',
-        data: [65, 59, 80, 81, 56, 55, 40]
+        data: <?php echo json_encode($monthlySales)?>
       }
     ]
   }
@@ -722,21 +753,18 @@
   // Donut Chart
   var pieChartCanvas = $('#sales-chart-canvas').get(0).getContext('2d')
   var pieData = {
-    labels: [
-      'Instore Sales',
-      'Download Sales',
-      'Mail-Order Sales'
-    ],
+    labels: <?php echo json_encode($zones)?> ,
     datasets: [
       {
-        data: [30, 12, 20],
-        backgroundColor: ['#f56954', '#00a65a', '#f39c12']
+        data: <?php echo json_encode($zoneSales)?>,
+        // backgroundColor: ['#f56954', '#00a65a', '#f39c12']
+        backgroundColor: <?php echo json_encode($colors);?>
       }
     ]
   }
   var pieOptions = {
     legend: {
-      display: false
+      display: true
     },
     maintainAspectRatio: false,
     responsive: true
@@ -755,7 +783,7 @@
   // $('#revenue-chart').get(0).getContext('2d');
 
   var salesGraphChartData = {
-    labels: ['2011 Q1', '2011 Q2', '2011 Q3', '2011 Q4', '2012 Q1', '2012 Q2', '2012 Q3', '2012 Q4', '2013 Q1', '2013 Q2'],
+    labels: <?php echo json_encode($months)?>,
     datasets: [
       {
         label: 'Digital Goods',
@@ -768,7 +796,7 @@
         pointHoverRadius: 7,
         pointColor: '#efefef',
         pointBackgroundColor: '#efefef',
-        data: [2666, 2778, 4912, 3767, 6810, 5670, 4820, 15073, 10687, 8432]
+        data: <?php echo json_encode($monthlySales)?>
       }
     ]
   }
