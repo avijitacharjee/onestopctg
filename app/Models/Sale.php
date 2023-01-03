@@ -72,4 +72,9 @@ class Sale extends Model
             get: fn($value)=>$this->saleItems->sum('profit')
         );
     }
+    public function totalCog(): Attribute {
+        return Attribute::make(
+            get: fn($value)=>$this->saleItems->sum('total_cost')
+        );
+    }
 }

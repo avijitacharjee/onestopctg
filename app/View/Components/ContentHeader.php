@@ -10,7 +10,7 @@ class ContentHeader extends Component
     public $directory;
     public $subDirectory;
     public $subDirectoryUrl;
-    public function __construct($name,$subDirectory,$subDirectoryUrl)
+    public function __construct($name,$subDirectory="",$subDirectoryUrl="")
     {
         $this->name = $name;
         $this->directory = "Home";

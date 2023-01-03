@@ -503,13 +503,13 @@
                                         <p>Product report</p>
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item">
+                                <li class="nav-item">
                                     <a href="/reports/best-sale" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Best sale</p>
                                     </a>
-                                </li> --}}
-                                {{-- <li class="nav-item">
+                                </li>
+                                <li class="nav-item">
                                     <a href="/reports/quantity-alert" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Quantity alert</p>
@@ -532,7 +532,7 @@
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Monthly sales</p>
                                     </a>
-                                </li> --}}
+                                </li>
                                 <li class="nav-item">
                                     <a href="/reports/supplier" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -551,13 +551,13 @@
                                         <p>Expense report</p>
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item">
+                                <li class="nav-item">
                                     <a href="/reports/payment" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Payment report</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                {{--<li class="nav-item">
                                     <a href="/reports/tax" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tax report</p>

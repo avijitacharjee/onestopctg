@@ -55,7 +55,9 @@
             border-top: 1px solid #357ebd;
             text-align: center;
         }
-        #paymentList td,th{
+
+        #paymentList td,
+        th {
             text-align: center;
         }
     </style>
@@ -124,7 +126,7 @@
                                                 <td>{{ $sale->total_bonus }}</td>
                                                 <td>{{ $sale->total_discount }}</td>
                                                 <td>
-                                                    <x-payment-status message="{{$sale->payment_status}}"/>
+                                                    <x-payment-status message="{{ $sale->payment_status }}" />
                                                 </td>
                                                 <td>
                                                     <div class="dropdown">
@@ -156,7 +158,8 @@
                                                                 details</button>
                                                         </div>
                                                     </div>
-                                                    <div class="modal fade .modal-xl" id="listPaymentModal{{$loop->index}}" tabindex="-1"
+                                                    <div class="modal fade .modal-xl"
+                                                        id="listPaymentModal{{ $loop->index }}" tabindex="-1"
                                                         role="dialog" aria-labelledby="exampleModalCenterTitle"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered modal-xl"
@@ -186,12 +189,12 @@
                                                                         <tbody>
                                                                             @foreach ($sale->payments as $payment)
                                                                                 <tr>
-                                                                                    <td>{{$loop->iteration}}</td>
-                                                                                    <td>{{$payment->payment_date}}</td>
-                                                                                    <td>{{$payment->reference_no}}</td>
-                                                                                    <td>{{$payment->amount}}</td>
-                                                                                    <td>{{$payment->payment_method}}</td>
-                                                                                    <td>{{$payment->note}}</td>
+                                                                                    <td>{{ $loop->iteration }}</td>
+                                                                                    <td>{{ $payment->payment_date }}</td>
+                                                                                    <td>{{ $payment->reference_no }}</td>
+                                                                                    <td>{{ $payment->amount }}</td>
+                                                                                    <td>{{ $payment->payment_method }}</td>
+                                                                                    <td>{{ $payment->note }}</td>
                                                                                 </tr>
                                                                             @endforeach
                                                                         </tbody>
@@ -557,40 +560,38 @@
                                                         </div>
                                                     </div>
                                                 </td>
-
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            {{-- <th>#</th> --}}
+                                            <th>Date</th>
+                                            <th>Customer</th>
+                                            <th>Sale Status</th>
+                                            <th>Grand Total</th>
+                                            <th>Paid</th>
+                                            <th>Balance</th>
+                                            <th>Sample</th>
+                                            <th>Bonus</th>
+                                            <th>Dr honor</th>
+                                            <th>Payment status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
-                            </tr>
-                            @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    {{-- <th>#</th> --}}
-                                    <th>Date</th>
-                                    <th>Customer</th>
-                                    <th>Sale Status</th>
-                                    <th>Grand Total</th>
-                                    <th>Paid</th>
-                                    <th>Balance</th>
-                                    <th>Sample</th>
-                                    <th>Bonus</th>
-                                    <th>Dr honor</th>
-                                    <th>Payment status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </tfoot>
-                            </table>
+                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card-body -->
+                        <!-- /.card -->
                     </div>
-                    <!-- /.card -->
+                    <!-- /.col -->
                 </div>
-                <!-- /.col -->
+                <!-- /.row -->
             </div>
-            <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
     </div>
 @endsection
 @section('js')

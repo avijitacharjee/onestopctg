@@ -80,10 +80,22 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         'controller' => ReportController::class,
         'prefix' => 'reports'
     ], function () {
+        Route::get('sale', 'productReport');
         Route::get('product', 'productReport');
-        Route::get('customer', 'customerReport');
+        Route::get('best-sale', 'productReport');
+        Route::get('quantity-alert', 'productReport');
+        Route::get('expiry-alert', 'productReport');
+
+        Route::get('daily-sales', 'customerReport');
+        Route::get('monthly-sales', function () {
+            $year = now()->year;
+            return redirect('/reports/monthly-sales/'.$year.'/0');
+        });
+        Route::get('monthly-sales/{year}/{warehouse_id}', 'monthlySalesReport');
         Route::get('supplier', 'supplierReport');
+        Route::get('customer', 'customerReport');
         Route::get('expense', 'expenseReport');
+        Route::get('payment', 'paymentReport');
     });
     Route::group([
         'controller' => DashboardController::class,

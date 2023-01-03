@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Expense;
+use App\Models\ExpenseCategory;
+use App\Models\Product;
 use App\Models\Sale;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -32,21 +35,34 @@ class DashboardController extends Controller
             array_push($zoneSales,Customer::where('zone', $customer->zone)->get()->sum('total_sold')-Customer::where('zone', $customer->zone)->get()->sum('total_discount'));
             array_push($colors, $this->rand_color());
         }
-        // $customers = Customer::all();
-        // foreach($customers as $customer){
-        //     $zoneSales[$customer->zone] += $customer->total_sold;
-        // }
-                return view('admin.dashboard')
+        $sales = Sale::latest()->take(5)->get();
+        $expenses = Expense::orderByDesc('date')->take(5)->get();
+        $categories = ExpenseCategory::all();
+
+        $topProducts = Product::all()->sortByDesc('sold_quantity')->take(5)->pluck('name');
+        $topProductsQuantity = Product::all()->sortByDesc('sold_quantity')->take(5)->pluck('sold_quantity');
+
+        $topProductsThisMonth = Product::whereMonth('created_at',now()->month)->get()->sortByDesc('sold_quantity')->take(5)->pluck('name');
+        $topProductsQuantityThisMonth = Product::whereMonth('created_at',now()->month)->get()->sortByDesc('sold_quantity')->take(5)->pluck('sold_quantity');
+        return view('admin.dashboard')
             ->with('salesAmount', $salesAmount)
             ->with('totalDue', $totalDue)
             ->with('totalPaid', $totalPaid)
             ->with('numberOfSales', $numberOfSales)
             ->with('netProfit', $netProfit)
-            ->with('months',$months)
-            ->with('monthlySales',$monthlySales)
-            ->with('zones',$zones)
-            ->with('zoneSales',$zoneSales)
-            ->with('colors',$colors);
+            ->with('months', $months)
+            ->with('monthlySales', $monthlySales)
+            ->with('zones', $zones)
+            ->with('zoneSales', $zoneSales)
+            ->with('colors', $colors)
+            ->with('sales', $sales)
+            ->with('expenses', $expenses)
+            ->with('categories', $categories)
+            ->with('topProducts', $topProducts)
+            ->with('topProductsQuantity',$topProductsQuantity)
+            ->with('topProductsThisMonth', $topProductsThisMonth)
+            ->with('topProductsQuantityThisMonth',$topProductsQuantityThisMonth);
+
 
     }
     // public function lastNMonths($n)
