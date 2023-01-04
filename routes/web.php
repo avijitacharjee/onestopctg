@@ -36,6 +36,13 @@ Route::post('/login', [UserController::class, 'login']);
 Route::get('logout', [UserController::class, 'logout']);
 
 Route::middleware(AuthMiddleware::class)->group(function () {
+    Route::group([
+        'controller' => CustomerController::class,
+        'prefix' => 'customer'
+    ], function () {
+        Route::get('add-csv','addCsv');
+        Route::post('add-csv','storeCsv');
+    });
     Route::resources([
         'customer' => CustomerController::class,
         'sale' => SaleController::class,
@@ -86,7 +93,8 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         Route::get('quantity-alert', 'productReport');
         Route::get('expiry-alert', 'productReport');
 
-        Route::get('daily-sales', 'customerReport');
+        Route::get('daily-sales', 'dailySalesReport');
+        Route::get('cal','cal');
         Route::get('monthly-sales', function () {
             $year = now()->year;
             return redirect('/reports/monthly-sales/'.$year.'/0');
@@ -102,6 +110,9 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     ], function () {
         Route::get('dashboard', 'dashboard');
     });
+
+
+
     Route::fallback(
         function () {
             return view('errors.404');

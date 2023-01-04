@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Sale;
 use App\Models\Supplier;
 use App\Models\Warehouse;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -84,33 +85,72 @@ class ReportController extends Controller
         return view('admin.report.payment')
             ->with('payments', $payments);
     }
-    public function monthlySalesReport($year,$warehouse_id) {
+    public function monthlySalesReport($year, $warehouse_id)
+    {
         $warehouse = Warehouse::find($warehouse_id);
-        $warehouse_name = $warehouse->name??'All Warehouses';
+        $warehouse_name = $warehouse->name ?? 'All Warehouses';
         $monthlyDatam = collect();
-        $months = collect( ['January', 'February', 'March', 'April', 'May', 'June', 'July ', 'August', 'September', 'October', 'November', 'December']);
-        for ($i = 1; $i <= 12;$i++){
-            $sales = Sale::whereYear('created_at',$year)->whereMonth('created_at',$i)->get();
+        $months = collect(['January', 'February', 'March', 'April', 'May', 'June', 'July ', 'August', 'September', 'October', 'November', 'December']);
+        for ($i = 1; $i <= 12; $i++) {
+            $sales = Sale::whereYear('created_at', $year)->whereMonth('created_at', $i)->get();
             $revenue = $sales->sum('total');
             $discount = $sales->sum('total_discount');
-            $expense = Expense::whereYear('date',$year)->whereMonth('date',$i)->get()->sum('amount');
+            $expense = Expense::whereYear('date', $year)->whereMonth('date', $i)->get()->sum('amount');
             $cost = $sales->sum('total_cog');
             $profit = $sales->sum('profit');
             $monthlyDatam->push(collect([
-                'month'=>$months[$i-1],
-                'revenue'=>$revenue,
-                'discount'=>$discount,
-                'cost'=>$cost,
-                'expense'=>$expense,
-                'profit'=>$profit
+                'month' => $months[$i - 1],
+                'revenue' => $revenue,
+                'discount' => $discount,
+                'cost' => $cost,
+                'expense' => $expense,
+                'profit' => $profit
             ]));
         }
         // dd($monthlyDatam);
         $warehouses = Warehouse::all();
         return view('admin.report.monthly-sale')
-            ->with('year',$year)
-            ->with('warehouse_name',$warehouse_name)
-            ->with('warehouses',$warehouses)
-            ->with('monthlyDatam',$monthlyDatam);
+            ->with('year', $year)
+            ->with('warehouse_name', $warehouse_name)
+            ->with('warehouses', $warehouses)
+            ->with('monthlyDatam', $monthlyDatam);
+    }
+    public function dailySalesReport(){
+        return view('admin.report.daily-sale');
+    }
+    public function cal()
+    {
+        return view('admin.report.cal')
+            ->with('cal',$this->calendar());
+    }
+    public function calendar($date = null)
+    {
+        $date = empty($date) ? Carbon::now() : Carbon::createFromDate($date);
+        $startOfCalendar = $date->copy()->firstOfMonth()->startOfWeek(Carbon::SUNDAY);
+        $endOfCalendar = $date->copy()->lastOfMonth()->endOfWeek(Carbon::SATURDAY);
+
+        $html = '<div class="calendar">';
+
+        $html .= '<div class="month-year">';
+        $html .= '<span class="month">' . $date->format('M') . '</span>';
+        $html .= '<span class="year">' . $date->format('Y') . '</span>';
+        $html .= '</div>';
+
+        $html .= '<div class="days">';
+
+        $dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        foreach ($dayLabels as $dayLabel) {
+            $html .= '<span class="day-label">' . $dayLabel . '</span>';
+        }
+
+        while ($startOfCalendar <= $endOfCalendar) {
+            $extraClass = $startOfCalendar->format('m') != $date->format('m') ? 'dull' : '';
+            $extraClass .= $startOfCalendar->isToday() ? ' today' : '';
+
+            $html .= '<span class="day ' . $extraClass . '"><span class="content">' . $startOfCalendar->format('j') . '</span></span>';
+            $startOfCalendar->addDay();
+        }
+        $html .= '</div></div>';
+        return $html;
     }
 }

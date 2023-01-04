@@ -322,7 +322,12 @@
                                             <p>Add customer</p>
                                         </a>
                                     </li>
-
+                                    <li class="nav-item">
+                                        <a href="/customer/add-csv" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Add customer via CSV</p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         @endaccess
@@ -503,7 +508,7 @@
                                         <p>Product report</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="/reports/best-sale" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Best sale</p>
@@ -526,7 +531,7 @@
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Daily sales</p>
                                     </a>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item">
                                     <a href="/reports/monthly-sales" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>

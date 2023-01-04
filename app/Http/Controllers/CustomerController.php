@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
@@ -85,5 +86,26 @@ class CustomerController extends Controller
     {
         $customer->delete();
         return back();
+    }
+    public function addCsv(){
+        return view('admin.customer.add-csv');
+    }
+    public function storeCsv(Request $request){
+        $file = $request->file('csv');
+        $lines = file($file, FILE_IGNORE_NEW_LINES);
+        foreach ($lines as $index => $line) {
+            if ($index == 0) {
+                continue;
+            }
+            $words = explode(',', $line);
+            $customer = new Customer();
+            $customer->name = trim($words[1], '"');
+            $customer->email = trim($words[2], '"');
+            $customer->phone = trim($words[3], '"');
+            $customer->address = trim($words[4], '"');
+            $customer->city = trim($words[5], '"');
+            $customer->save();
+        }
+        return back()->with('message', 'Successfully added to database');
     }
 }
