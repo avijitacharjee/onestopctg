@@ -10,6 +10,7 @@ use App\Models\ProductWarehouse;
 use App\Models\Sale;
 use App\Models\Transfer;
 use App\Models\Warehouse;
+use Exception;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -54,23 +55,27 @@ class ProductController extends Controller
                 continue;
             }
             $words = explode(',', $line);
-            $product = new Product();
-            $product->name = trim($words[1], '"');
-            $product->generic_name = trim($words[2], '"');
-            $product->group_name = trim($words[3], '"');
-            $product->batch_name = trim($words[4], '"');
-            $product->expire_date = trim($words[5], '"');
-            $product->cost_of_goods = trim($words[6], '"');
-            $product->sale_price = trim($words[7], '"');
-            $product->alert_quantity = trim($words[8], '"');
-            $product->quantity = trim($words[9], '"');
-            $product->save();
+            try {
+                $product = new Product();
+                $product->name = trim($words[1], '"');
+                $product->generic_name = trim($words[2], '"');
+                $product->group_name = trim($words[3], '"');
+                $product->batch_name = trim($words[4], '"');
+                $product->expire_date = date("Y-m-d", strtotime(trim($words[5], '"')));
+                $product->cost_of_goods = trim($words[6], '"');
+                $product->sale_price = trim($words[7], '"');
+                $product->alert_quantity = trim($words[8], '"');
+                $product->quantity = trim($words[9], '"');
+                $product->save();
+            } catch (Exception $e) {
+                continue;
+            }
 
             $warehouse = Warehouse::find($request->warehouse_id);
             $productWarehouse = new ProductWarehouse();
             $productWarehouse->product_id = $product->id;
             $productWarehouse->warehouse_id = $warehouse->id;
-            $productWarehouse->stock =trim($words[9], '"');
+            $productWarehouse->stock = trim($words[9], '"');
             $productWarehouse->save();
         }
         return back()->with('message', 'Successfully added to database');
