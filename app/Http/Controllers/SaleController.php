@@ -20,7 +20,7 @@ class SaleController extends Controller
     public function index()
     {
 
-        $sales = Sale::all();
+        $sales = Sale::with(['customer','payments','saleItems.product'])->get();
         // foreach($sales as $sale){
         //     $productNames = [];
         //     foreach(explode(',',$sale->product_ids) as $product_id){
@@ -44,12 +44,6 @@ class SaleController extends Controller
         return view('admin.sale.add');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreSaleRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreSaleRequest $request)
     {
         $sale = new Sale();
@@ -75,7 +69,6 @@ class SaleController extends Controller
             $saleItem->cog = $product->cost_of_goods;
             $saleItem->save();
         }
-
         return back()->with('message', 'Successfully Added');
     }
 

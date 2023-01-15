@@ -754,7 +754,7 @@
                         <button class="nav-link" id="pills-contact-tab" data-toggle="pill" data-target="#pills-contact"
                             type="button" role="tab" aria-controls="pills-contact"
                             aria-selected="false">Contact</button>
-                    </li> --}}
+                        </li> --}}
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
@@ -1341,7 +1341,7 @@
                                                         <tr>
                                                             <td>{{ $loop->index + 1 }}</td>
                                                             <td>{{ $expense->name }}</td>
-                                                            <td>{{ $expense->cateogory->name }}</td>
+                                                            <td>{{ $expense->category->name }}</td>
                                                             <td>{{ $expense->amount }}</td>
                                                             <td>{{ date('jS M, Y', strtotime($expense->date)) }}</td>
                                                             <td>{{ $expense->note }}</td>
