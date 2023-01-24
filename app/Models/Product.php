@@ -21,6 +21,11 @@ class Product extends Model
             get: fn ($value) => $this->saleItems->sum('quantity')
         );
     }
+    public function profitPerProduct(): Attribute{
+        return Attribute::make(
+            get: fn($value)=>$this->sold_quantity*($this->sale_price-$this->cog)
+        );
+    }
     public function warehouses()
     {
         return $this->belongsToMany(Warehouse::class,'product_warehouses')

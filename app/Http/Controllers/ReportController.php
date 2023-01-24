@@ -10,12 +10,13 @@ use App\Models\Sale;
 use App\Models\Supplier;
 use App\Models\Warehouse;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
-    public function saleReport()
+    public function saleReportOld()
     {
         $products = Product::with('saleItems')->get();
         $sales = Sale::with('saleItems.product')->get();
@@ -37,6 +38,108 @@ class ReportController extends Controller
         }
         return view('admin.report.sale')
             ->with('products', $products);
+    }
+    public function saleReport(Request $request)
+    {
+        $product = $request->product;
+        $customer = $request->customer;
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
+        $paymentStatus = $request->payment_status;
+        $sales = Sale
+            ::when($product, function ($query, $product) {
+                $query->whereHas(
+                    'saleItems.product',
+                    function ($q) use ($product) {
+                        $q->where('name', 'like', "%{$product}%");
+                    }
+                );
+            })
+            ->when($customer, function ($query, $customer) {
+                $query->whereHas(
+                    'customer',
+                    function ($q) use ($customer) {
+                        $q->where('name', 'like', "%{$customer}%");
+                    }
+                );
+            })
+            ->when($startDate, function ($query, $startDate) {
+                $query->whereDate('created_at', '>', $startDate);
+            })
+            ->when($endDate, function ($query, $endDate) {
+                $query->whereDate('created_at', '<', $endDate);
+            })
+            ->when($paymentStatus, function($query,$paymentStatus){
+                $query->where();
+            })
+            ->with(['customer', 'saleItems.product'])
+            ->get()
+            ->filter(function ($sale) use ($paymentStatus) {
+                if ($paymentStatus == "due") {
+                    return $sale->paymentStatus == "Due";
+                } elseif ($paymentStatus == "paid") {
+                    return $sale->paymentStatus == "Paid";
+                } elseif ($paymentStatus == "pending") {
+                    return $sale->paymentStatus == "Pending";
+                }
+                return true;
+            });
+        return view('admin.report.sale')
+            ->with('sales', $sales);
+    }
+    public function bestSale(Request $request)
+    {
+        $product = $request->product;
+        $customer = $request->customer;
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
+        $paymentStatus = $request->payment_status;
+        $sales = Sale
+            ::when($product, function ($query, $product) {
+                $query->whereHas(
+                    'saleItems.product',
+                    function ($q) use ($product) {
+                        $q->where('name', 'like', "%{$product}%");
+                    }
+                );
+            })
+            ->when($customer, function ($query, $customer) {
+                $query->whereHas(
+                    'customer',
+                    function ($q) use ($customer) {
+                        $q->where('name', 'like', "%{$customer}%");
+                    }
+                );
+            })
+            ->when($startDate, function ($query, $startDate) {
+                $query->whereDate('created_at', '>', $startDate);
+            })
+            ->when($endDate, function ($query, $endDate) {
+                $query->whereDate('created_at', '<', $endDate);
+            })
+            ->when($paymentStatus,function($query,$paymentStatus){
+                $query->where();
+            })
+            ->with(['customer', 'saleItems.product'])
+            ->get()
+            ->filter(function ($sale) use ($paymentStatus) {
+                if ($paymentStatus == "due") {
+                    return $sale->paymentStatus == "Due";
+                } elseif ($paymentStatus == "paid") {
+                    return $sale->paymentStatus == "Paid";
+                } elseif ($paymentStatus == "pending") {
+                    return $sale->paymentStatus == "Pending";
+                }
+                return true;
+            })
+            ->sortByDesc('total');
+        return view('admin.report.best-sale')
+            ->with('sales', $sales);
+    }
+    public function profitPerProduct(){
+        $products = Product::all()->sortByDesc('profit_per_product');
+        return view('admin.report.profit-per-product')
+            ->with('products',$products);
     }
     public function productReport()
     {
@@ -115,13 +218,14 @@ class ReportController extends Controller
             ->with('warehouses', $warehouses)
             ->with('monthlyDatam', $monthlyDatam);
     }
-    public function dailySalesReport(){
+    public function dailySalesReport()
+    {
         return view('admin.report.daily-sale');
     }
     public function cal()
     {
         return view('admin.report.cal')
-            ->with('cal',$this->calendar());
+            ->with('cal', $this->calendar());
     }
     public function calendar($date = null)
     {
@@ -152,5 +256,17 @@ class ReportController extends Controller
         }
         $html .= '</div></div>';
         return $html;
+    }
+    public function warehouseReport()
+    {
+        $warehouses = Warehouse::withCount([
+            'products' => function (Builder $query) {
+                $query->where('stock', '>', 0);
+            }
+        ])
+            ->with('products')
+            ->get();
+        return view('admin.report.warehouse')
+            ->with('warehouses', $warehouses);
     }
 }

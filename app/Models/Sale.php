@@ -65,17 +65,26 @@ class Sale extends Model
     {
         return $this->hasMany(Payment::class);
     }
-    public function totalSaleAmountAllTime(){
+    public function totalSaleAmountAllTime()
+    {
         return $this->all()->sum('total');
     }
-    public function profit(): Attribute {
+    public function profit(): Attribute
+    {
         return Attribute::make(
-            get: fn($value)=>$this->saleItems->sum('profit')
+            get: fn ($value) => $this->saleItems->sum('profit')
         );
     }
-    public function totalCog(): Attribute {
+    public function totalCog(): Attribute
+    {
         return Attribute::make(
-            get: fn($value)=>$this->saleItems->sum('total_cost')
+            get: fn ($value) => $this->saleItems->sum('total_cost')
+        );
+    }
+    public function date(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => date('Y-m-d', strtotime($this->created_at))
         );
     }
 }

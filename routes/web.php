@@ -87,9 +87,11 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         'controller' => ReportController::class,
         'prefix' => 'reports'
     ], function () {
-        Route::get('sale', 'productReport');
+        Route::get('warehouse', 'warehouseReport');
+        Route::get('sale', 'saleReport');
         Route::get('product', 'productReport');
-        Route::get('best-sale', 'productReport');
+        Route::get('best-sale', 'bestSale');
+        Route::get('profit-per-product', 'profitPerProduct');
         Route::get('quantity-alert', 'productReport');
         Route::get('expiry-alert', 'productReport');
 

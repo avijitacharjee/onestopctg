@@ -17,7 +17,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="POST" action="/sale">
+                        <form method="POST" action="{{route('sale.store')}}">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">

@@ -93,13 +93,13 @@
 
                             </div>
                             <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
+                            <div class="card-body table-responsive">
+                                <table id="example1" class="table table-bordered table-responsive table-sm">
                                     <thead>
                                         <tr>
                                             {{-- <th>#</th> --}}
                                             <th>Date</th>
-                                            <th>Customer</th>
+                                            <th style="width:30px;">Customer</th>
                                             <th>Sale Status</th>
                                             <th>Grand Total</th>
                                             <th>Paid</th>
@@ -107,7 +107,7 @@
                                             <th>Sample</th>
                                             <th>Bonus</th>
                                             <th>Dr honor</th>
-                                            <th>Payment status</th>
+                                            <th style="width:5%;">Payment status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -116,8 +116,8 @@
                                         @foreach ($sales as $sale)
                                             <tr>
                                                 {{-- <td>{{ $loop->iteration }}</td> --}}
-                                                <td>{{ $sale->date_text }}</td>
-                                                <td>{{ $sale->customer->name }}</td>
+                                                <td>{{ $sale->date }}</td>
+                                                <td style="width: 40px;">{{ $sale->customer->name }}</td>
                                                 <td><span class="badge badge-success">Completed</span></td>
                                                 <td>{{ $sale->total }}</td>
                                                 <td>{{ $sale->paid }}</td>
@@ -125,7 +125,7 @@
                                                 <td>{{ $sale->total_sample }}</td>
                                                 <td>{{ $sale->total_bonus }}</td>
                                                 <td>{{ $sale->total_discount }}</td>
-                                                <td>
+                                                <td style="width:5%;">
                                                     <x-payment-status message="{{ $sale->payment_status }}" />
                                                 </td>
                                                 <td>
@@ -390,7 +390,7 @@
                                                                                                 style="text-align:center; width:40px; vertical-align:middle;">
                                                                                                 {{ $loop->iteration }}</td>
                                                                                             <td
-                                                                                                style="vertical-align:middle;">
+                                                                                                style="vertical-align:middle; width: 40px;">
                                                                                                 {{ $saleItem->product->name }}
                                                                                             </td>
                                                                                             <td
@@ -552,11 +552,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <script type="text/javascript">
-                                                                $(document).ready(function() {
-                                                                    $('.tip').tooltip();
-                                                                });
-                                                            </script>
+
                                                         </div>
                                                     </div>
                                                 </td>
@@ -614,6 +610,7 @@
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
+                "scrollX": true,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
@@ -624,6 +621,7 @@
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,
+                "scrollX":true,
             });
         });
     </script>

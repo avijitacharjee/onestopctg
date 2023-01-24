@@ -31,7 +31,7 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Sales</h3>
+                                <h3 class="card-title">Best sale</h3>
 
                             </div>
                             <!-- /.card-header -->

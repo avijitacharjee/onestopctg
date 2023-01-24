@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Warehouse extends Model
 {
     use HasFactory;
-    public function products(){
-        return $this->belongsToMany(Product::class)->withTimestamps();
+    public function products()
+    {
+        return $this->belongsToMany(Product::class,'product_warehouses')
+            ->withPivot('stock')
+            ->withTimestamps();
+    }
+    public function numberOfProducts()
+    {
+        return $this->products->count();
     }
 }

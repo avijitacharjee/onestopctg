@@ -497,6 +497,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
+                                    <a href="/reports/warehouse" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Warehouse report</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="/reports/sale" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Sale report</p>
@@ -508,13 +514,20 @@
                                         <p>Product report</p>
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item">
+                                <li class="nav-item">
                                     <a href="/reports/best-sale" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Best sale</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="/reports/profit-per-product" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Profit per product
+                                        </p>
+                                    </a>
+                                </li>
+                                {{-- <li class="nav-item">
                                     <a href="/reports/quantity-alert" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Quantity alert</p>
