@@ -91,7 +91,7 @@
                                     <div class="box-content">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <p class="introtext">You can change the month by clicking the >> (next) or
+                                                <p class="introtext">You can change the year by clicking the >> (next) or
                                                     << (previous) </p>
                                                         <div class="table-responsive">
                                                             <table

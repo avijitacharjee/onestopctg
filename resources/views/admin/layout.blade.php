@@ -538,13 +538,13 @@
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Expiry alert</p>
                                     </a>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item">
                                     <a href="/reports/daily-sales" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Daily sales</p>
                                     </a>
-                                </li> --}}
+                                </li>
                                 <li class="nav-item">
                                     <a href="/reports/monthly-sales" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>

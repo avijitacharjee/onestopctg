@@ -69,7 +69,7 @@ class ReportController extends Controller
             ->when($endDate, function ($query, $endDate) {
                 $query->whereDate('created_at', '<', $endDate);
             })
-            ->when($paymentStatus, function($query,$paymentStatus){
+            ->when($paymentStatus, function ($query, $paymentStatus) {
                 $query->where();
             })
             ->with(['customer', 'saleItems.product'])
@@ -117,7 +117,7 @@ class ReportController extends Controller
             ->when($endDate, function ($query, $endDate) {
                 $query->whereDate('created_at', '<', $endDate);
             })
-            ->when($paymentStatus,function($query,$paymentStatus){
+            ->when($paymentStatus, function ($query, $paymentStatus) {
                 $query->where();
             })
             ->with(['customer', 'saleItems.product'])
@@ -136,10 +136,11 @@ class ReportController extends Controller
         return view('admin.report.best-sale')
             ->with('sales', $sales);
     }
-    public function profitPerProduct(){
+    public function profitPerProduct()
+    {
         $products = Product::all()->sortByDesc('profit_per_product');
         return view('admin.report.profit-per-product')
-            ->with('products',$products);
+            ->with('products', $products);
     }
     public function productReport()
     {
@@ -218,12 +219,20 @@ class ReportController extends Controller
             ->with('warehouses', $warehouses)
             ->with('monthlyDatam', $monthlyDatam);
     }
-    public function dailySalesReport()
+    public function dailySalesReport(Request $request)
     {
-        return view('admin.report.daily-sale');
+        $date = null;
+        if($request->month){
+            $date = Carbon::createFromFormat("Y-m-j",$request->month."-01");
+            // dd($date);
+            // $date = $month->firstOfMonth();
+        }
+        return view('admin.report.daily-sale')
+            ->with('cal', $this->calendar($date));
     }
-    public function cal()
+    public function cal(Request $request)
     {
+
         return view('admin.report.cal')
             ->with('cal', $this->calendar());
     }
@@ -246,15 +255,37 @@ class ReportController extends Controller
         foreach ($dayLabels as $dayLabel) {
             $html .= '<span class="day-label">' . $dayLabel . '</span>';
         }
-
+        $i = 0;
         while ($startOfCalendar <= $endOfCalendar) {
             $extraClass = $startOfCalendar->format('m') != $date->format('m') ? 'dull' : '';
             $extraClass .= $startOfCalendar->isToday() ? ' today' : '';
 
-            $html .= '<span class="day ' . $extraClass . '"><span class="content">' . $startOfCalendar->format('j') . '</span></span>';
+            $html .= '<button data-toggle="modal" data-target="#myModal' . $i++ . '" class="day ' . $extraClass . '"><span class="content">' . $startOfCalendar->format('j') . '</span></button>';
+            // $html .= $this->calModal();
             $startOfCalendar->addDay();
         }
         $html .= '</div></div>';
+        $startOfCalendar = $date->copy()->firstOfMonth()->startOfWeek(Carbon::SUNDAY);
+        $i = 0;
+        while ($startOfCalendar <= $endOfCalendar) {
+            $sales = Sale::whereDate('created_at', $startOfCalendar->toDateString())->get();
+            $revenue = $sales->sum('total');
+            $discount = $sales->sum('total_discount');
+            $expense = Expense::whereDate('created_at', $startOfCalendar->toDateString())->get()->sum('amount');
+            $cost = $sales->sum('total_cog');
+            $profit = $sales->sum('profit');
+
+            $html .= $this->calModal(
+                $startOfCalendar->format("y-m-j"),
+                $i++,
+                $revenue,
+                $discount,
+                $expense,
+                $cost,
+                $profit
+            );
+            $startOfCalendar->addDay();
+        }
         return $html;
     }
     public function warehouseReport()
@@ -268,5 +299,87 @@ class ReportController extends Controller
             ->get();
         return view('admin.report.warehouse')
             ->with('warehouses', $warehouses);
+    }
+    public function calModal($date, $i,$revenue,$discount,$expense,$cost,$profit)
+    {
+        return "
+        <div class='modal fade .modal-xl'
+        id='myModal{$i}'
+        tabindex='-1' role='dialog'
+        aria-labelledby='exampleModalCenterTitle'
+        aria-hidden='true'>
+            <div class='modal-dialog'
+                role='document'>
+                <div class='modal-content'>
+                    <div class='modal-header'>
+                        <h5 class='modal-title'
+                            id='exampleModalLongTitle'>
+                            Sale report
+                            {$date}
+                        </h5>
+                        <button type='button'
+                            class='close'
+                            data-dismiss='modal'
+                            aria-label='Close'>
+                            <span
+                                aria-hidden='true'>&times;</span>
+                        </button>
+                    </div>
+                    <div id='modalBody'
+                        class='modal-body'>
+                        <table class='table table-responsive table-striped'>
+                            <tbody style='width: 100%'>
+                                <tr>
+                                    <td>
+                                        Product's Revenue:
+                                    </td>
+                                    <td>
+                                        {$revenue}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Doctor Honor:
+                                    </td>
+                                    <td>
+                                        {$discount}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Product Cost:
+                                    </td>
+                                    <td>
+                                        {$cost}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Expenses
+                                    </td>
+                                    <td>
+                                        {$expense}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Profit
+                                    </td>
+                                    <td>
+                                        {$profit}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='button'
+                            class='btn btn-secondary'
+                            data-dismiss='modal'>Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        ";
     }
 }
