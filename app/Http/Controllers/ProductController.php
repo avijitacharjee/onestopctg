@@ -67,6 +67,7 @@ class ProductController extends Controller
                 $product->sale_price = trim($words[7], '"');
                 $product->alert_quantity = trim($words[8], '"');
                 $product->quantity = trim($words[9], '"');
+                $product->tax = trim($words[10], '"');
                 $product->save();
             } catch (Exception $e) {
                 continue;
@@ -78,6 +79,14 @@ class ProductController extends Controller
             $productWarehouse->warehouse_id = $warehouse->id;
             $productWarehouse->stock = trim($words[9], '"');
             $productWarehouse->save();
+
+            $productAdjustment = new ProductAdjustment();
+            $productAdjustment->product_id = $product->id;
+            $productAdjustment->warehouse_id = $warehouse->id;
+            $productAdjustment->user_id = auth()->user()->id;
+            $productAdjustment->note = "Added by csv uploading";
+            $productAdjustment->quantity = $product->quantity;
+            $productAdjustment->save();
         }
         return back()->with('message', 'Successfully added to database');
     }
