@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Facade;
 
 return [
-    'version' => '0.5.1',
+    'version' => env('APP_VERSION','1.0.0'),
 
     /*
     |--------------------------------------------------------------------------

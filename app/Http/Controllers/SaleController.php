@@ -61,10 +61,10 @@ class SaleController extends Controller
             $saleItem->customer_id = $request->customer_id;
             $saleItem->product_id = $request->product_ids[$i];
             $saleItem->price = $request->prices[$i];
-            $saleItem->quantity = $request->quantities[$i];
-            $saleItem->sample = $request->samples[$i];
-            $saleItem->bonus = $request->bonuses[$i];
-            $saleItem->discount = $request->discounts[$i];
+            $saleItem->quantity = $request->quantities[$i]??0;
+            $saleItem->sample = $request->samples[$i]??0;
+            $saleItem->bonus = $request->bonuses[$i]??0;
+            $saleItem->discount = $request->discounts[$i]??0;
             $saleItem->sale_id = $sale->id;
             $saleItem->cog = $product->cost_of_goods;
             $saleItem->save();
