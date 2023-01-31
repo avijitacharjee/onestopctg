@@ -63,6 +63,11 @@
                                             id="exampleInputPassword1" placeholder="Alert quantity" required>
                                     </div>
                                     <div class="form-group">
+                                        <label for="exampleInputPassword1">Tax</label>
+                                        <input type="number" name="tax" class="form-control"
+                                            id="exampleInputPassword1" placeholder="Alert quantity" required>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="">Select Warehouse</label>
                                         <select name="warehouse_id" id="" class="form-control">
                                             @foreach ($warehouses as $warehouse)

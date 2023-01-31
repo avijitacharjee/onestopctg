@@ -300,6 +300,11 @@ class ReportController extends Controller
         return view('admin.report.warehouse')
             ->with('warehouses', $warehouses);
     }
+    public function taxReport(){
+        $sales = Sale::with(['customer','saleItems.product'])->get();
+        return view('admin.report.tax')
+            ->with('sales',$sales);
+    }
     public function calModal($date, $i,$revenue,$discount,$expense,$cost,$profit)
     {
         return "

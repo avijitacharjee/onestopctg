@@ -12,7 +12,8 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    function rand_color() {
+    function rand_color()
+    {
         return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
     }
     public function dashboard()
@@ -23,16 +24,16 @@ class DashboardController extends Controller
         $totalPaid = $sales->sum('paid');
         $netProfit = $sales->sum('profit');
         $numberOfSales = $sales->count();
-        $months = array_column($this->lastNMonths(12),'month_name');
+        $months = array_column($this->lastNMonths(12), 'month_name');
         $monthlySales = $this->monthlySales();
         $customers = Customer::select('zone')->distinct('zone')->get();
         $zones = array();
         $zoneSales = array();
         $colors = array();
-        foreach($customers as $customer){
+        foreach ($customers as $customer) {
             array_push($zones, $customer->zone);
             // dd(Customer::where('zone', $customer->zone)->get()->sum('total_sold'));
-            array_push($zoneSales,Customer::where('zone', $customer->zone)->get()->sum('total_sold')-Customer::where('zone', $customer->zone)->get()->sum('total_discount'));
+            array_push($zoneSales, Customer::where('zone', $customer->zone)->get()->sum('total_sold') - Customer::where('zone', $customer->zone)->get()->sum('total_discount'));
             array_push($colors, $this->rand_color());
         }
         $sales = Sale::latest()->take(5)->get();
@@ -42,8 +43,8 @@ class DashboardController extends Controller
         $topProducts = Product::all()->sortByDesc('sold_quantity')->take(5)->pluck('name');
         $topProductsQuantity = Product::all()->sortByDesc('sold_quantity')->take(5)->pluck('sold_quantity');
 
-        $topProductsThisMonth = Product::whereMonth('created_at',now()->month)->get()->sortByDesc('sold_quantity')->take(5)->pluck('name');
-        $topProductsQuantityThisMonth = Product::whereMonth('created_at',now()->month)->get()->sortByDesc('sold_quantity')->take(5)->pluck('sold_quantity');
+        $topProductsThisMonth = Product::whereMonth('created_at', now()->month)->get()->sortByDesc('sold_quantity')->take(5)->pluck('name');
+        $topProductsQuantityThisMonth = Product::whereMonth('created_at', now()->month)->get()->sortByDesc('sold_quantity')->take(5)->pluck('sold_quantity');
         return view('admin.dashboard')
             ->with('salesAmount', $salesAmount)
             ->with('totalDue', $totalDue)
@@ -59,11 +60,9 @@ class DashboardController extends Controller
             ->with('expenses', $expenses)
             ->with('categories', $categories)
             ->with('topProducts', $topProducts)
-            ->with('topProductsQuantity',$topProductsQuantity)
+            ->with('topProductsQuantity', $topProductsQuantity)
             ->with('topProductsThisMonth', $topProductsThisMonth)
-            ->with('topProductsQuantityThisMonth',$topProductsQuantityThisMonth);
-
-
+            ->with('topProductsQuantityThisMonth', $topProductsQuantityThisMonth);
     }
     // public function lastNMonths($n)
     // {
@@ -82,22 +81,24 @@ class DashboardController extends Controller
     //     }
     //     return $months;
     // }
-    public function lastNMonths($n){
+    public function lastNMonths($n)
+    {
         $months = array();
-        $now = now();
-        for($i = 1;$i<=$n;$i++){
+        // $now = now()->lastOfMonth();
+        for ($i = 0; $i < $n; $i++) {
             array_push($months, [
-                'month_name'=>now()->subMonth($i)->monthName,
-                'month'=>now()->subMonth($i)->month,
-                'year'=>now()->subMonth($i)->year
+                'month_name' => now()->firstOfMonth()->subMonth($i)->monthName,
+                'month' => now()->firstOfMonth()->subMonth($i)->month,
+                'year' => now()->firstOfMonth()->subMonth($i)->year
             ]);
         }
         return array_reverse($months);
     }
-    public function monthlySales(){
+    public function monthlySales()
+    {
         $months = $this->lastNMonths(12);
         $sales = array();
-        foreach($months as $month){
+        foreach ($months as $month) {
             $totalSale = Sale::whereYear('created_at', $month['year'])
                 ->whereMonth('created_at', $month['month'])
                 ->get()

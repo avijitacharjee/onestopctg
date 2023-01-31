@@ -575,12 +575,18 @@
                                         <p>Payment report</p>
                                     </a>
                                 </li>
-                                {{--<li class="nav-item">
+                                <li class="nav-item">
                                     <a href="/reports/tax" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tax report</p>
                                     </a>
-                                </li> --}}
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/reports/adjustment" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Adjustment report</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         @endaccess

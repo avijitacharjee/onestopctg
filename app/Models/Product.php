@@ -11,10 +11,6 @@ class Product extends Model
     use HasFactory;
     protected $guarded = [];
     protected $with = ['saleItems'];
-    public function saleItems()
-    {
-        return $this->hasMany(SaleItem::class);
-    }
     public function soldQuantity(): Attribute
     {
         return Attribute::make(
@@ -26,6 +22,11 @@ class Product extends Model
             get: fn($value)=>$this->sold_quantity*($this->sale_price-$this->cog)
         );
     }
+    public function saleItems()
+    {
+        return $this->hasMany(SaleItem::class);
+    }
+
     public function warehouses()
     {
         return $this->belongsToMany(Warehouse::class,'product_warehouses')

@@ -87,4 +87,16 @@ class Sale extends Model
             get: fn ($value) => date('Y-m-d', strtotime($this->created_at))
         );
     }
+    public function tax(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                $total = 0;
+                foreach ($this->saleItems as $saleItem) {
+                    $total += ($saleItem->product->tax * $saleItem->quantity);
+                }
+                return $total;
+            }
+        );
+    }
 }

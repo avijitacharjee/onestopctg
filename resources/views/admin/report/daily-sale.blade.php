@@ -129,7 +129,8 @@
                             <form action="" class="mx-3">
                                 <div class="form-group">
                                     <label for="">Select month</label>
-                                    <input type="month" name="month" id="" value="{{request()->month??date("Y-m")}}">
+                                    <input type="month" name="month" id=""
+                                        value="{{ request()->month ?? date('Y-m') }}">
                                     <button type="submit" class="">Submit</button>
                                 </div>
                             </form>
