@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\Expense;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\ProductAdjustment;
 use App\Models\Sale;
 use App\Models\Supplier;
 use App\Models\Warehouse;
@@ -304,6 +305,11 @@ class ReportController extends Controller
         $sales = Sale::with(['customer','saleItems.product'])->get();
         return view('admin.report.tax')
             ->with('sales',$sales);
+    }
+    public function adjustmentReport(){
+        $adjustments = ProductAdjustment::all();
+        return view('admin.report.adjustment')
+            ->with('adjustments',$adjustments);
     }
     public function calModal($date, $i,$revenue,$discount,$expense,$cost,$profit)
     {

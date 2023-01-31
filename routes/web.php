@@ -107,6 +107,7 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         Route::get('expense', 'expenseReport');
         Route::get('payment', 'paymentReport');
         Route::get('tax', 'taxReport');
+        Route::get('adjustment', 'adjustmentReport');
     });
     Route::group([
         'controller' => DashboardController::class,

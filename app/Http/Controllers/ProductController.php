@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Customer;
+use App\Models\ProductAdjustment;
 use App\Models\ProductWarehouse;
 use App\Models\Sale;
 use App\Models\Transfer;
@@ -145,6 +146,13 @@ class ProductController extends Controller
         $productWarehouse->stock = $request->quantity;
         $productWarehouse->save();
 
+        $productAdjustment = new ProductAdjustment();
+        $productAdjustment->product_id = $product->id;
+        $productAdjustment->warehouse_id = $warehouse->id;
+        $productAdjustment->user_id = auth()->user()->id;
+        // $productAdjustment->note = "Added by "
+        $productAdjustment->quantity = $request->quantity;
+        $productAdjustment->save();
 
         return back()->with('message', 'Succesfully Added');
     }
