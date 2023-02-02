@@ -17,7 +17,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="POST" action="{{route('sale.store')}}">
+                        <form method="POST" action="{{ route('sale.store') }}">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -25,13 +25,16 @@
                                     <input type="text" name="name" class="form-control" id="customer"
                                         placeholder="Name">
                                     <input type="hidden" name="customer_id" id="customer_id">
-                                    <br>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Product <sub>( with stock )</sub></label>
                                     <input type="text" name="product" id="product" class="form-control">
                                     <input type="hidden" name="product_id" id="product_id">
                                     <input type="hidden" name="price" id="price">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Reference No</label>
+                                    <input type="text" name="reference_no" class="form-control">
                                 </div>
                                 <button id="addButton" style="float: left;" class="btn btn-secondary">Add to list</button>
                                 <table id="table" class="table table-bordered table-striped">
@@ -253,10 +256,12 @@
 
             // });
             $('#quantity' + index).change(function() {
-                $('#subtotal' + index).html($('#quantity' + index).val() * $('#price' + index).val()-$('#discount'+index).val());
+                $('#subtotal' + index).html($('#quantity' + index).val() * $('#price' + index).val() - $(
+                    '#discount' + index).val());
             });
             $('#discount' + index).change(function() {
-                $('#subtotal' + index).html($('#quantity' + index).val() * $('#price' + index).val()-$('#discount'+index).val());
+                $('#subtotal' + index).html($('#quantity' + index).val() * $('#price' + index).val() - $(
+                    '#discount' + index).val());
             });
         });
         $('#previewButton').click(function(e) {

@@ -48,6 +48,7 @@ class SaleController extends Controller
     {
         $sale = new Sale();
         $sale->customer_id = $request->customer_id;
+        $sale->reference_no = $request->reference_no;
         $sale->save();
 
         $numOfProducts = count($request->product_ids);

@@ -223,8 +223,8 @@ class ReportController extends Controller
     public function dailySalesReport(Request $request)
     {
         $date = null;
-        if($request->month){
-            $date = Carbon::createFromFormat("Y-m-j",$request->month."-01");
+        if ($request->month) {
+            $date = Carbon::createFromFormat("Y-m-j", $request->month . "-01");
             // dd($date);
             // $date = $month->firstOfMonth();
         }
@@ -301,17 +301,19 @@ class ReportController extends Controller
         return view('admin.report.warehouse')
             ->with('warehouses', $warehouses);
     }
-    public function taxReport(){
-        $sales = Sale::with(['customer','saleItems.product'])->get();
+    public function taxReport()
+    {
+        $sales = Sale::with(['customer', 'saleItems.product'])->latest()->get();
         return view('admin.report.tax')
-            ->with('sales',$sales);
+            ->with('sales', $sales);
     }
-    public function adjustmentReport(){
+    public function adjustmentReport()
+    {
         $adjustments = ProductAdjustment::all();
         return view('admin.report.adjustment')
-            ->with('adjustments',$adjustments);
+            ->with('adjustments', $adjustments);
     }
-    public function calModal($date, $i,$revenue,$discount,$expense,$cost,$profit)
+    public function calModal($date, $i, $revenue, $discount, $expense, $cost, $profit)
     {
         return "
         <div class='modal fade .modal-xl'

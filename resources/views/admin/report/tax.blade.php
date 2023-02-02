@@ -95,18 +95,11 @@
                                 <table id="example1" class="table table-bordered table-responsive table-sm">
                                     <thead>
                                         <tr>
-                                            {{-- <th>#</th> --}}
                                             <th>Date</th>
-                                            <th>Customer</th>
-                                            <th>Sale Status</th>
-                                            <th>Grand Total</th>
-                                            <th>Paid</th>
-                                            <th>Balance</th>
-                                            <th>Sample</th>
-                                            <th>Bonus</th>
-                                            <th>Dr honor</th>
-                                            <th style="width:5%;">Payment status</th>
-                                            <th>Tax</th>
+                                            <th>Reference No.</th>
+                                            <th>Status</th>
+                                            <th>Product tax</th>
+                                            <th>Grand total</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -116,18 +109,12 @@
                                             <tr>
                                                 {{-- <td>{{ $loop->iteration }}</td> --}}
                                                 <td>{{ $sale->date }}</td>
-                                                <td>{{ $sale->customer->name }}</td>
-                                                <td><span class="badge badge-success">Completed</span></td>
-                                                <td>{{ $sale->total }}</td>
-                                                <td>{{ $sale->paid }}</td>
-                                                <td>{{ $sale->due }}</td>
-                                                <td>{{ $sale->total_sample }}</td>
-                                                <td>{{ $sale->total_bonus }}</td>
-                                                <td>{{ $sale->total_discount }}</td>
+                                                <td>{{ $sale->reference_no }}</td>
                                                 <td style="width:5%;">
                                                     <x-payment-status message="{{ $sale->payment_status }}" />
                                                 </td>
-                                                <td>{{$sale->tax}}</td>
+                                                <td>{{ $sale->tax }}</td>
+                                                <td>{{ $sale->total+$sale->tax }}</td>
                                                 <td>
                                                     <button style="border: none;" data-toggle="modal"
                                                     data-target="#myModal{{ $loop->index }}">
@@ -161,7 +148,7 @@
                                                                                         Date: {{ $sale->date_text }}<br>
                                                                                         {{-- Reference: SALE2022/12/0061<br> --}}
                                                                                         Sale Status: Completed<br>
-                                                                                        Payment Status: Paid<br>
+                                                                                        Payment Status: {{$sale->payment_status}}<br>
                                                                                     </p>
                                                                                 </div>
                                                                                 <div
@@ -286,19 +273,12 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            {{-- <th>#</th> --}}
-                                            <th>Date</th>
-                                            <th>Customer</th>
-                                            <th>Sale Status</th>
-                                            <th>Grand Total</th>
-                                            <th>Paid</th>
-                                            <th>Balance</th>
-                                            <th>Sample</th>
-                                            <th>Bonus</th>
-                                            <th>Dr honor</th>
-                                            <th>Payment status</th>
-                                            <th>Tax</th>
-                                            <th>Action</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>{{$sales->sum('tax')}}</th>
+                                            <th>{{$sales->sum('total')}}</th>
+                                            <th></th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -336,6 +316,7 @@
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
+                "aaSorting": [],
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
