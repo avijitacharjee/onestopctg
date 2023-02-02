@@ -20,7 +20,7 @@ class SaleController extends Controller
     public function index()
     {
 
-        $sales = Sale::with(['customer','payments','saleItems.product'])->get();
+        $sales = Sale::with(['customer','payments','saleItems.product'])->latest('id')->get();
         // foreach($sales as $sale){
         //     $productNames = [];
         //     foreach(explode(',',$sale->product_ids) as $product_id){
