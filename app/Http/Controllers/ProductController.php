@@ -144,7 +144,7 @@ class ProductController extends Controller
         $product->sale_price =  $request->sale_price;
         $product->quantity = $request->quantity;
         $product->alert_quantity = $request->alert_quantity;
-        $product->tax = $request->tax;
+        $product->tax = 0;//$request->tax;
         $product->save();
         // $warehouses = Warehouse::all();
         // foreach ($warehouses as $warehouse) {

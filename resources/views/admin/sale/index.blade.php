@@ -333,7 +333,7 @@
                                                                                         Date: {{ $sale->date_text }}<br>
                                                                                         {{-- Reference: SALE2022/12/0061<br> --}}
                                                                                         Sale Status: Completed<br>
-                                                                                        Payment Status: Paid<br>
+                                                                                        Payment Status: {{$sale->payment_status}}<br>
                                                                                     </p>
                                                                                 </div>
                                                                                 <div
@@ -379,7 +379,8 @@
                                                                                         <th>Sample</th>
                                                                                         <th>Bonus</th>
                                                                                         <th>Unit Price</th>
-                                                                                        <th>Tax</th>
+                                                                                        <th>Dr honor</th>
+                                                                                        {{-- <th>Tax</th> --}}
                                                                                         <th>Subtotal</th>
                                                                                     </tr>
                                                                                 </thead>
@@ -405,12 +406,15 @@
                                                                                                 style="width: 80px; text-align:center; vertical-align:middle;">
                                                                                                 {{ $saleItem->bonus }}</td>
                                                                                             <td
-                                                                                                style="text-align:right; width:100px;">
+                                                                                                style="text-align:center; width:100px; vertical-align:middle;">
                                                                                                 {{ $saleItem->price }}
                                                                                             </td>
-                                                                                            <td
+                                                                                            {{-- <td
                                                                                                 style="width: 100px; text-align:right; vertical-align:middle;">
                                                                                                 <small>(VAT10)</small> 00.00
+                                                                                            </td> --}}
+                                                                                            <td style="text-align: right; vertical-align:middle;">
+                                                                                                {{$saleItem->discount}}
                                                                                             </td>
                                                                                             <td
                                                                                                 style="text-align:right; width:120px;">
@@ -424,7 +428,7 @@
                                                                                             style="text-align:right; padding-right:10px;">
                                                                                             Total (BDT)
                                                                                         </td>
-                                                                                        <td style="text-align:right;">0.00
+                                                                                        <td style="text-align:right;">
                                                                                         </td>
                                                                                         <td
                                                                                             style="text-align:right; padding-right:10px;">
@@ -446,7 +450,7 @@
                                                                                         </td>
                                                                                         <td
                                                                                             style="text-align:right; font-weight:bold;">
-                                                                                            {{ $sale->total }}</td>
+                                                                                            {{ $sale->paid }}</td>
                                                                                     </tr>
                                                                                     {{-- <tr>
                                                                                         <td colspan="6"

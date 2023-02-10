@@ -62,11 +62,11 @@
                                         <input type="number" name="alert_quantity" class="form-control"
                                             id="exampleInputPassword1" placeholder="Alert quantity" required>
                                     </div>
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="exampleInputPassword1">Tax (%)</label>
                                         <input type="number" name="tax" class="form-control"
                                             id="exampleInputPassword1" placeholder="Tax in percentage" required>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group">
                                         <label for="">Select Warehouse</label>
                                         <select name="warehouse_id" id="" class="form-control">
