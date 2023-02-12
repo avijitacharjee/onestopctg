@@ -33,7 +33,7 @@
                     <div class="col-12">
 
                         <div class="card">
-                            <form action="/expense-category/" method="POST" class="mx-3">
+                            <form action="{{route('expense-category.store')}}" method="POST" class="mx-3">
                                 @csrf
                                 <div class="form-group">
                                     <label>Add category</label>
