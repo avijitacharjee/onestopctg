@@ -1,0 +1,17 @@
+.main-sidebar {
+    background-color: #212529 !important;
+    background-color: #101010 !important;
+}
+.nav-link i {
+    color: white !important;
+}
+.navbar-black {
+    background-color: #212529 !important;
+}
+.table>thead:first-child>tr:first-child>th {
+    background-color: #428bca;
+    color: white;
+    border-color: #357ebd;
+    border-top: 1px solid #357ebd;
+    text-align: center;
+}
