@@ -229,9 +229,9 @@ class ProductController extends Controller
         $transfer->to_warehouse = $request->to_warehouse;
         $transfer->product_id = $request->product_id;
         $transfer->transfer_date = $request->transfer_date;
-        $transfer->reference_no = $request->reference_no;
+        $transfer->reference_no = $request->reference_no??"";
         $transfer->quantity = $request->quantity;
-        $transfer->shipping = $request->shipping;
+        $transfer->shipping = $request->shipping??"";
         $transfer->save();
         return back()->with('message', 'Successfully saved');
     }

@@ -29,7 +29,7 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <form action="/transfer/" method="POST" class="mx-3">
+                <form action="{{route('transfer.store')}}" method="POST" class="mx-3">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">

@@ -69,7 +69,7 @@ Route::middleware(AuthMiddleware::class)->group(function () {
 
         Route::get('transfer', 'transferIndex');
         Route::get('transfer/create', 'createTransfer');
-        Route::post('transfer', 'storeTransfer');
+        Route::post('transfer', 'storeTransfer')->name('transfer.store');
 
         Route::get('return', 'returnIndex');
         Route::get('return/create', 'createReturn');
